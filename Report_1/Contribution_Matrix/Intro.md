@@ -1,0 +1,1 @@
+All reports should include a contribution matrix detailing how each member has contributed to the content of the report both in writing and material. The faculty advisor can use this information to decide on individual grading.
