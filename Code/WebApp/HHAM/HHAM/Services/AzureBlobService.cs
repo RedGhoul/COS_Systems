@@ -15,6 +15,8 @@ namespace HHAM.Services
     {
         private CloudStorageAccount cloudStorageAccount;
         private CloudBlobClient cloudBlobClient;
+        private string DICOMContainerEnding = "dicomfiles";
+        private string ScansContainerEnding = "scans";
 
         public AzureBlobService()
         {
@@ -24,7 +26,7 @@ namespace HHAM.Services
 
         public ICollection<string> getAllPatientScans(int patientID)
         {
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + "scans");
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + ScansContainerEnding);
             cloudBlobContainer.CreateIfNotExists();
 
             var listOfScanBlobs = cloudBlobContainer.ListBlobs().ToList();
@@ -39,7 +41,7 @@ namespace HHAM.Services
          
         public ICollection<string> getAllPatientDICOMFiles(int patientID)
         {
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + "dicomfiles");
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + DICOMContainerEnding);
             cloudBlobContainer.CreateIfNotExists();
 
             var listOfScanBlobs = cloudBlobContainer.ListBlobs().ToList();
@@ -64,7 +66,7 @@ namespace HHAM.Services
             try
             {
                 //getting the patients container
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + "scans");
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + ScansContainerEnding);
                 if (cloudBlobContainer.CreateIfNotExists())
                 {
                     await cloudBlobContainer.SetPermissionsAsync(
@@ -103,7 +105,7 @@ namespace HHAM.Services
             try
             {
                 //getting the patients container
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + "dicomfiles");
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + DICOMContainerEnding);
                 if (cloudBlobContainer.CreateIfNotExists())
                 {
                     await cloudBlobContainer.SetPermissionsAsync(
@@ -115,26 +117,26 @@ namespace HHAM.Services
                         );
                 }
                 //creating the scan name
-                string scanName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(ScanToUpload.Name);
+                string scanName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(DICOMFileToUpload.Name);
                 //making the blob ref
                 CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(scanName);
                 //setting data type
-                cloudBlockBlob.Properties.ContentType = ScanToUpload.GetType().Name;
+                cloudBlockBlob.Properties.ContentType = DICOMFileToUpload.GetType().Name;
                 //uploading the byte array
-                await cloudBlockBlob.UploadFromByteArrayAsync(ScanToUpload.Value.Buffer, 0, ScanToUpload.Value.Buffer.Length);
+                await cloudBlockBlob.UploadFromByteArrayAsync(DICOMFileToUpload.Value.Buffer, 0, DICOMFileToUpload.Value.Buffer.Length);
 
-                PatientScanPath = cloudBlockBlob.Uri.ToString();
+                PatientDICOMPath = cloudBlockBlob.Uri.ToString();
             }
             catch (Exception)
             {
                 return null;
             }
-            return PatientScanPath;
+            return PatientDICOMPath;
         }
 
-        public bool IsValid(string scanURL, string patientID)
+        public bool IsValidScanImageURL(string scanURL, string patientID)
         {
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + "scans");
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + ScansContainerEnding);
 
             try
             {
@@ -147,12 +149,35 @@ namespace HHAM.Services
             }
 
         }
-
-        public async void DeletePic(string scanURL, string patientID)
+        public bool IsValidDICOMFileURL(string DICOMFileURL, string patientID)
         {
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + "scans");
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + DICOMContainerEnding);
+
+            try
+            {
+                cloudBlobContainer.GetBlockBlobReference(DICOMFileURL);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public async void DeleteScan(string scanURL, string patientID)
+        {
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + ScansContainerEnding);
 
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(scanURL);
+            await cloudBlockBlob.DeleteIfExistsAsync();
+        }
+
+        public async void DeleteDICOMFile(string DICOMFileURL, string patientID)
+        {
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + DICOMContainerEnding);
+
+            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(DICOMFileURL);
             await cloudBlockBlob.DeleteIfExistsAsync();
         }
     }
