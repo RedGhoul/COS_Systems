@@ -1,0 +1,313 @@
+﻿@model HHAM.ViewModels.PatientProfileViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" type="text/css">
+<div id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav" style="margin-top:55px;">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">Clarence Taylor</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" style="font-size: 30px;color:white;">@Model.FirstName  @Model.LastName</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#Stats">Stats</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#Scans">Most Recent Scans</a>
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("All Scans", "UserScans", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#CareGivers">Care Givers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#Notes">Notes</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+        <div class="my-auto">
+           
+            <section class="stats-section p-3 p-lg-5 d-flex flex-column" id="Stats">
+                <h2 class="mb-5">Stats</h2>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="card" id="cardstat">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center">Age</h5>
+                                <p class="card-text" style="text-align:center">45</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" id="cardstat">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center">Gender</h5>
+                                <p class="card-text" style="text-align:center">Female</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" id="cardstat">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center">Weight</h5>
+                                <p class="card-text" style="text-align:center">45</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" id="cardstat">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center">Height</h5>
+                                <p class="card-text" style="text-align:center">45</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" id="cardstat">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center">Married</h5>
+                                <p class="card-text" style="text-align:center">Yes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" id="cardstat">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center">Primary Address</h5>
+                                <p class="card-text" style="text-align:center">2000 Simcoe St N, Oshawa, ON L1H 7K4</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" id="cardstat">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center">Secondary Address</h5>
+                                <p class="card-text" style="text-align:center">2000 Simcoe St N, Oshawa, ON L1H 7K4</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" id="cardstat">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center">Date Admitted</h5>
+                                <p class="card-text" style="text-align:center">2018-09-25</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" id="cardstat">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center">Date Released</h5>
+                                <p class="card-text" style="text-align:center">2018-09-25</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" id="cardstat">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center">Blood Type</h5>
+                                <p class="card-text" style="text-align:center">A</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <hr class="m-0">
+    <div class="container-fluid p-0">
+        <div class="my-auto">
+
+            <section class="stats-section p-3 p-lg-5 d-flex flex-column" id="Scans">
+                <h2 class="mb-5">Most Recent Scans</h2>
+                <div class="card mb-3">
+                    <img class="card-img-top" src="https://www.cancer.gov/PublishedContent/Images/images/screening-prevention/adenocarcinoma-ct-scan-article.__v100032785.jpg">
+                    <div class="card-body">
+                        <p class="card-text">These newer scans look okay</p>
+                        <p class="card-text"><small class="text-muted">Taken: 2018-09-24</small></p>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <img class="card-img-top" src="https://www.cancer.gov/PublishedContent/Images/images/screening-prevention/adenocarcinoma-ct-scan-article.__v100032785.jpg">
+                    <div class="card-body">
+                        <p class="card-text">These newer scans look okay</p>
+                        <p class="card-text"><small class="text-muted">Taken: 2018-09-24</small></p>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <img class="card-img-top" src="https://www.cancer.gov/PublishedContent/Images/images/screening-prevention/adenocarcinoma-ct-scan-article.__v100032785.jpg">
+                    <div class="card-body">
+                        <p class="card-text">These newer scans look okay</p>
+                        <p class="card-text"><small class="text-muted">Taken: 2018-09-24</small></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <hr class="m-0">
+        <section class="stats-section p-3 p-lg-5 d-flex flex-column" id="CareGivers">
+            <div class="my-auto">
+                <h2 class="mb-5">Care Givers</h2>
+                <div class="card-deck">
+                    <div class="card" style="max-width: 10rem;">
+                        <img class="card-img-top" src="https://randomuser.me/api/portraits/women/90.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Jenny Wang</h5>
+                            <p class="card-text">Doctor</p>
+                        </div>
+                    </div>
+                    <div class="card" style="max-width: 10rem;">
+                        <img class="card-img-top" src="https://randomuser.me/api/portraits/men/21.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Mike Danson</h5>
+                            <p class="card-text">Nusre</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="m-0">
+
+        <section class="stats-section p-3 p-lg-5 d-flex flex-column" id="Notes">
+            <div class="my-auto">
+                <h2 class="mb-5">Notes</h2>
+                <div class="row">
+                    <div class="col-3">
+
+                    </div>
+                    <div class="col-3">
+                        @Model.Notes
+                    </div>
+                    <div class="col-3">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    @section scripts{
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('a.js-scroll-trigger').click(function () {
+                                    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+
+                                        var target = $(this.hash);
+                                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                                    if (target.length) {
+                            $('html, body').animate({
+                                        scrollTop: (target.offset().top)
+                            }, 1000, "easeInOutExpo");
+                                        return false;
+                                    }
+                                }
+                            });
+
+                $('.js-scroll-trigger').click(function () {
+                    $('.navbar-collapse').collapse('hide');
+                            });
+
+                $('body').scrollspy({
+                            target: '#sideNav'
+                });
+            });
+        </script>
+    }
+
+</div>
+
+@*<h2>Details</h2>
+
+    <div>
+        <h4>Patient</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Weight)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Weight)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Height)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Height)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateAdmited)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateAdmited)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateReleased)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateReleased)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonalPhotoURL)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PersonalPhotoURL)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

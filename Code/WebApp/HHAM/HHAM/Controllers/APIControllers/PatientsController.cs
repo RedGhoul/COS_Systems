@@ -1,0 +1,127 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Description;
+using HHAM.Models;
+
+namespace HHAM.Controllers.APIControllers
+{
+    public class PatientsController : ApiController
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        [Route("api/Patient/All/")]
+        public async Task<IHttpActionResult> GetPatient()
+        {
+            var listofPatients = await db.Patient.Select(x => new
+            {
+                id = x.Id,
+                firstName = x.FirstName,
+                lastName = x.LastName,
+                dateAdmitted = x.DateAdmited
+            }).ToListAsync();
+
+            return Ok(listofPatients);
+        }
+
+        // GET: api/Patients/5
+        [ResponseType(typeof(Patient))]
+        public async Task<IHttpActionResult> GetPatient(int id)
+        {
+            Patient patient = await db.Patient.FindAsync(id);
+            if (patient == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(patient);
+        }
+
+        // PUT: api/Patients/5
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutPatient(int id, Patient patient)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != patient.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(patient).State = EntityState.Modified;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PatientExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST: api/Patients
+        [ResponseType(typeof(Patient))]
+        public async Task<IHttpActionResult> PostPatient(Patient patient)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Patient.Add(patient);
+            await db.SaveChangesAsync();
+
+            return CreatedAtRoute("DefaultApi", new { id = patient.Id }, patient);
+        }
+
+        // DELETE: api/Patients/5
+        [ResponseType(typeof(Patient))]
+        public async Task<IHttpActionResult> DeletePatient(int id)
+        {
+            Patient patient = await db.Patient.FindAsync(id);
+            if (patient == null)
+            {
+                return NotFound();
+            }
+
+            db.Patient.Remove(patient);
+            await db.SaveChangesAsync();
+
+            return Ok(patient);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool PatientExists(int id)
+        {
+            return db.Patient.Count(e => e.Id == id) > 0;
+        }
+    }
+}
