@@ -66,8 +66,10 @@ namespace HHAM.Migrations
                 context.UserProfileInfo.Add(new UserProfileInfo
                 {
                     Description = "I am an ADMIN !!! YAY ME",
+                    Name = "Nancy Cook",
+                    Role = "Doctor",
                     User = AdminUser,
-                    UrlProfilePicture = "http://www.smiley.com/sites/default/files/BRAND_SMILEY_MAIN.jpg",
+                    UrlProfilePicture = "https://randomuser.me/api/portraits/women/83.jpg",
                 });
 
 
@@ -91,6 +93,7 @@ namespace HHAM.Migrations
                 DoctorProfile = context.UserProfileInfo.Add(new UserProfileInfo
                 {
                     Description = "I am an Doctor !!! YAY ME",
+                    Role = "Doctor",
                     User = DoctorUser,
                     Name = "Jenny Wang",
                     UrlProfilePicture = "https://randomuser.me/api/portraits/women/90.jpg",
@@ -117,6 +120,7 @@ namespace HHAM.Migrations
                 {
                     Description = "I am a Nurse !!! YAY ME",
                     User = NurseUser,
+                    Role = "Nusre",
                     Name = "Max Tucker",
                     UrlProfilePicture = "https://randomuser.me/api/portraits/men/21.jpg",
                 });
@@ -207,6 +211,7 @@ namespace HHAM.Migrations
                             FirstName = personGenerator.GenerateRandomFirstName(),
                             LastName = personGenerator.GenerateRandomLastName(),
                             Age = gen.Next(26, 80),
+                            PatientNumber = Guid.NewGuid().ToString(),
                             Weight = gen.Next(120,205),
                             Height = gen.Next(100,200),
                             Gender = context.Genders.Where(x => x.Text == "Other").FirstOrDefault(),
@@ -214,8 +219,8 @@ namespace HHAM.Migrations
                             DateReleased = DateAdmited.AddDays(20),
                             Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10),
                             Married = false,
-                            PrimaryAddress = placeGenerator.GenerateRandomPlaceName(),
-                            SecondaryAddress = placeGenerator.GenerateRandomPlaceName(),
+                            PrimaryAddress = placeGenerator.GenerateRandomPlaceName() + "Street",
+                            SecondaryAddress = placeGenerator.GenerateRandomPlaceName() + "Street",
                             BloodType = context.BloodTypes.FirstOrDefault(),
                             CareGivers = context.UserProfileInfo.ToList()
 
@@ -227,6 +232,7 @@ namespace HHAM.Migrations
                             FirstName = personGenerator.GenerateRandomFirstName(),
                             LastName = personGenerator.GenerateRandomLastName(),
                             Age = gen.Next(26, 80),
+                            PatientNumber = Guid.NewGuid().ToString(),
                             Weight = gen.Next(120, 205),
                             Height = gen.Next(100, 200),
                             Gender = context.Genders.Where(x => x.Text == "Other").FirstOrDefault(),
@@ -234,8 +240,8 @@ namespace HHAM.Migrations
                             DateReleased = DateAdmited.AddDays(20),
                             Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10),
                             Married = true,
-                            PrimaryAddress = placeGenerator.GenerateRandomPlaceName(),
-                            SecondaryAddress = placeGenerator.GenerateRandomPlaceName(),
+                            PrimaryAddress = placeGenerator.GenerateRandomPlaceName() + "Street",
+                            SecondaryAddress = placeGenerator.GenerateRandomPlaceName() + "Street",
                             BloodType = context.BloodTypes.FirstOrDefault(),
                             CareGivers = context.UserProfileInfo.ToList()
                         });
