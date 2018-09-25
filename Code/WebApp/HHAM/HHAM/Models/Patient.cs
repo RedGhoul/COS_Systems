@@ -7,12 +7,8 @@ namespace HHAM.Models
 {
     public class Patient
     {
-        public Patient()
-        {
-            this.CareGivers = new HashSet<ApplicationUser>();
-
-        }
         public int Id { get; set; }
+        public int Age { get; set; }
 
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -41,7 +37,7 @@ namespace HHAM.Models
         public ICollection<Photo> Scans { get; set; }
 
         [Display(Name = "Care Givers")]
-        public ICollection<ApplicationUser> CareGivers { get; set; }
+        public ICollection<UserProfileInfo> CareGivers { get; set; }
 
         public bool Married { get; set; }
         public string PrimaryAddress { get; set; }

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HHAM.Models;
+using HHAM.ViewModels;
 
 namespace HHAM.Controllers
 {
@@ -22,18 +23,38 @@ namespace HHAM.Controllers
         }
 
         // GET: Patients/Details/5
-        public async Task<ActionResult> PatientProfile(int? id)
+        public ActionResult PatientProfile(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Patient patient = await db.Patient.FindAsync(id);
+            Patient patient = db.Patient.Include(x => x.Gender).Include(x => x.CareGivers).Include(x => x.BloodType).Where(x => x.Id == id).FirstOrDefault();
+
             if (patient == null)
             {
                 return HttpNotFound();
             }
-            return View(patient);
+            var viewModel = new PatientProfileViewModel
+            {
+                FirstName = patient.FirstName,
+                LastName = patient.LastName,
+                Age = patient.Age,
+                CurrentGender = patient.Gender,
+                Weight = patient.Weight,
+                Height = patient.Height,
+                Married = patient.Married,
+                PrimaryAddress = patient.PrimaryAddress,
+                SecondaryAddress = patient.SecondaryAddress,
+                DateAdmited = patient.DateAdmited,
+                DateReleased = patient.DateReleased,
+                CurrentBloodType = patient.BloodType,
+                Notes = patient.Notes,
+                ScanURLs = db.Photos.ToList(),
+                CareGivers = patient.CareGivers
+            };
+
+            return View(viewModel);
         }
 
         // GET: Patients/Create

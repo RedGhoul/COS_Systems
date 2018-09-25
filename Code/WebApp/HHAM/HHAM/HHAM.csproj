@@ -48,6 +48,9 @@
     <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="LoremNET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lorem.NET.1.0.6\lib\net40\LoremNET.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
     </Reference>
@@ -60,6 +63,9 @@
     </Reference>
     <Reference Include="MultipartDataMediaFormatter, Version=2.0.2.0, Culture=neutral, PublicKeyToken=67148dd0761d95a0, processorArchitecture=MSIL">
       <HintPath>..\packages\MultipartDataMediaFormatter.V2.2.0.2\lib\net45\MultipartDataMediaFormatter.dll</HintPath>
+    </Reference>
+    <Reference Include="RandomNameGeneratorLibrary, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RandomNameGeneratorLibrary.1.2.2.0\lib\net40\RandomNameGeneratorLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -266,6 +272,22 @@
     <Compile Include="Migrations\201809242007100_addedNewPropsToBloodType.Designer.cs">
       <DependentUpon>201809242007100_addedNewPropsToBloodType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809250228392_modifiedAModel.cs" />
+    <Compile Include="Migrations\201809250228392_modifiedAModel.Designer.cs">
+      <DependentUpon>201809250228392_modifiedAModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809250323284_problemWithAppUser.cs" />
+    <Compile Include="Migrations\201809250323284_problemWithAppUser.Designer.cs">
+      <DependentUpon>201809250323284_problemWithAppUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809250324202_changedCareGiverToUserProfiles.cs" />
+    <Compile Include="Migrations\201809250324202_changedCareGiverToUserProfiles.Designer.cs">
+      <DependentUpon>201809250324202_changedCareGiverToUserProfiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809250428330_addedRoleToUserProfile.cs" />
+    <Compile Include="Migrations\201809250428330_addedRoleToUserProfile.Designer.cs">
+      <DependentUpon>201809250428330_addedRoleToUserProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BloodType.cs" />
@@ -374,6 +396,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809242007100_addedNewPropsToBloodType.resx">
       <DependentUpon>201809242007100_addedNewPropsToBloodType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809250228392_modifiedAModel.resx">
+      <DependentUpon>201809250228392_modifiedAModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809250323284_problemWithAppUser.resx">
+      <DependentUpon>201809250323284_problemWithAppUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809250324202_changedCareGiverToUserProfiles.resx">
+      <DependentUpon>201809250324202_changedCareGiverToUserProfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809250428330_addedRoleToUserProfile.resx">
+      <DependentUpon>201809250428330_addedRoleToUserProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
