@@ -288,6 +288,10 @@
     <Compile Include="Migrations\201809250428330_addedRoleToUserProfile.Designer.cs">
       <DependentUpon>201809250428330_addedRoleToUserProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809251849181_addedPatientNumberToPatientModel.cs" />
+    <Compile Include="Migrations\201809251849181_addedPatientNumberToPatientModel.Designer.cs">
+      <DependentUpon>201809251849181_addedPatientNumberToPatientModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BloodType.cs" />
@@ -409,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809250428330_addedRoleToUserProfile.resx">
       <DependentUpon>201809250428330_addedRoleToUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809251849181_addedPatientNumberToPatientModel.resx">
+      <DependentUpon>201809251849181_addedPatientNumberToPatientModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

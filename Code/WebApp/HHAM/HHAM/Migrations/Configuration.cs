@@ -27,7 +27,7 @@ namespace HHAM.Migrations
             var personGenerator = new PersonNameGenerator();
             var placeGenerator = new PlaceNameGenerator();
             
-            DateTime DateAdmited = RandomDay();
+
             UserProfileInfo DoctorProfile= null;
             UserProfileInfo NurseProfile = null;
 
@@ -66,8 +66,10 @@ namespace HHAM.Migrations
                 context.UserProfileInfo.Add(new UserProfileInfo
                 {
                     Description = "I am an ADMIN !!! YAY ME",
+                    Name = "Nancy Wright",
+                    Role = "Doctor",
                     User = AdminUser,
-                    UrlProfilePicture = "http://www.smiley.com/sites/default/files/BRAND_SMILEY_MAIN.jpg",
+                    UrlProfilePicture = "https://randomuser.me/api/portraits/women/81.jpg",
                 });
 
 
@@ -92,6 +94,7 @@ namespace HHAM.Migrations
                 {
                     Description = "I am an Doctor !!! YAY ME",
                     User = DoctorUser,
+                    Role = "Doctor",
                     Name = "Jenny Wang",
                     UrlProfilePicture = "https://randomuser.me/api/portraits/women/90.jpg",
                 });
@@ -117,6 +120,7 @@ namespace HHAM.Migrations
                 {
                     Description = "I am a Nurse !!! YAY ME",
                     User = NurseUser,
+                    Role = "Nusre",
                     Name = "Max Tucker",
                     UrlProfilePicture = "https://randomuser.me/api/portraits/men/21.jpg",
                 });
@@ -197,8 +201,8 @@ namespace HHAM.Migrations
                 //temp.Add(DoctorProfile);
                 for (int i = 0; i < 50; i++)
                 {
-
-                    if(i % 2 == 0)
+                    DateTime DateAdmited = RandomDay();
+                    if (i % 2 == 0)
                     {
 
 
@@ -206,6 +210,7 @@ namespace HHAM.Migrations
                         {
                             FirstName = personGenerator.GenerateRandomFirstName(),
                             LastName = personGenerator.GenerateRandomLastName(),
+                            PatientNumber = Guid.NewGuid().ToString(),
                             Age = gen.Next(26, 80),
                             Weight = gen.Next(120,205),
                             Height = gen.Next(100,200),
@@ -214,8 +219,8 @@ namespace HHAM.Migrations
                             DateReleased = DateAdmited.AddDays(20),
                             Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10),
                             Married = false,
-                            PrimaryAddress = placeGenerator.GenerateRandomPlaceName(),
-                            SecondaryAddress = placeGenerator.GenerateRandomPlaceName(),
+                            PrimaryAddress = placeGenerator.GenerateRandomPlaceName() + "Street",
+                            SecondaryAddress = placeGenerator.GenerateRandomPlaceName() + "Avenue",
                             BloodType = context.BloodTypes.FirstOrDefault(),
                             CareGivers = context.UserProfileInfo.ToList()
 
@@ -226,16 +231,17 @@ namespace HHAM.Migrations
                         {
                             FirstName = personGenerator.GenerateRandomFirstName(),
                             LastName = personGenerator.GenerateRandomLastName(),
+                            PatientNumber = Guid.NewGuid().ToString(),
                             Age = gen.Next(26, 80),
                             Weight = gen.Next(120, 205),
                             Height = gen.Next(100, 200),
-                            Gender = context.Genders.Where(x => x.Text == "Other").FirstOrDefault(),
+                            Gender = context.Genders.Where(x => x.Text == "Female").FirstOrDefault(),
                             DateAdmited = DateAdmited,
                             DateReleased = DateAdmited.AddDays(20),
                             Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10),
                             Married = true,
-                            PrimaryAddress = placeGenerator.GenerateRandomPlaceName(),
-                            SecondaryAddress = placeGenerator.GenerateRandomPlaceName(),
+                            PrimaryAddress = placeGenerator.GenerateRandomPlaceName() + "Avenue",
+                            SecondaryAddress = placeGenerator.GenerateRandomPlaceName() + "Street",
                             BloodType = context.BloodTypes.FirstOrDefault(),
                             CareGivers = context.UserProfileInfo.ToList()
                         });
