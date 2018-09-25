@@ -12,6 +12,7 @@ namespace HHAM.Models
         public ApplicationUser User { get; set; }
         public string Description { get; set; }
         public string UrlProfilePicture { get; set; }
+        public string Role { get; set; }
         public ICollection<Patient> Patients { get; set; }
     }
 }
