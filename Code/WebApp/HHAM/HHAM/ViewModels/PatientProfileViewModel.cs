@@ -29,6 +29,7 @@ namespace HHAM.ViewModels
         public BloodType CurrentBloodType { get; set; }
         public ICollection<BloodType> BloodType { get; set; }
         public string Notes { get; set; }
-        public ICollection<string> ScanURLs { get; set; }
+        public ICollection<Photo> ScanURLs { get; set; }
+        public ICollection<UserProfileInfo> CareGivers { get; set; }
     }
 }
