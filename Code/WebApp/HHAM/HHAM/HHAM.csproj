@@ -233,11 +233,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\APIControllers\PatientsController.cs" />
-    <Compile Include="Controllers\APIControllers\PhotosController.cs" />
+    <Compile Include="Controllers\APIControllers\ScansController.cs" />
     <Compile Include="Controllers\ViewControllers\AccountController.cs" />
     <Compile Include="Controllers\ViewControllers\ManageController.cs" />
     <Compile Include="Controllers\ViewControllers\PatientsController.cs" />
-    <Compile Include="Controllers\ViewControllers\PhotosController.cs" />
+    <Compile Include="Controllers\ViewControllers\ScansController.cs" />
     <Compile Include="Controllers\ViewControllers\UserProfileInfoesController.cs" />
     <Compile Include="DataTransferObjects\PatientDto.cs" />
     <Compile Include="Global.asax.cs">
@@ -287,6 +287,10 @@
     <Compile Include="Migrations\201809250428330_addedRoleToUserProfile.Designer.cs">
       <DependentUpon>201809250428330_addedRoleToUserProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809262040180_TookOutScansFromPatient.cs" />
+    <Compile Include="Migrations\201809262040180_TookOutScansFromPatient.Designer.cs">
+      <DependentUpon>201809262040180_TookOutScansFromPatient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BloodType.cs" />
@@ -300,7 +304,7 @@
     <Compile Include="Services\AzureBlobService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\PatientProfileViewModel.cs" />
-    <Compile Include="ViewModels\PhotoAreaViewModel.cs" />
+    <Compile Include="ViewModels\ScansAreaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\resume.css" />
@@ -347,11 +351,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Photos\Create.cshtml" />
-    <Content Include="Views\Photos\Delete.cshtml" />
-    <Content Include="Views\Photos\Details.cshtml" />
-    <Content Include="Views\Photos\Edit.cshtml" />
-    <Content Include="Views\Photos\Index.cshtml" />
+    <Content Include="Views\Scans\Create.cshtml" />
+    <Content Include="Views\Scans\Delete.cshtml" />
+    <Content Include="Views\Scans\Details.cshtml" />
+    <Content Include="Views\Scans\Edit.cshtml" />
+    <Content Include="Views\Scans\Index.cshtml" />
     <Content Include="Views\Patients\Create.cshtml" />
     <Content Include="Views\Patients\Delete.cshtml" />
     <Content Include="Views\Patients\PatientProfile.cshtml" />
@@ -405,6 +409,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809250428330_addedRoleToUserProfile.resx">
       <DependentUpon>201809250428330_addedRoleToUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809262040180_TookOutScansFromPatient.resx">
+      <DependentUpon>201809262040180_TookOutScansFromPatient.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
