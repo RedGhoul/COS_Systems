@@ -25,7 +25,8 @@ namespace HHAM.Controllers.APIControllers
                 id = x.Id,
                 firstName = x.FirstName,
                 lastName = x.LastName,
-                dateAdmitted = x.DateAdmited
+                dateAdmitted = x.DateAdmited,
+                dateReleased = x.DateReleased
             }).ToListAsync();
 
             return Ok(listofPatients);

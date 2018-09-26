@@ -9,13 +9,15 @@ using System.Web;
 using System.Web.Mvc;
 using HHAM.Models;
 using HHAM.ViewModels;
+using HHAM.Services;
 
 namespace HHAM.Controllers
 {
+    [Authorize]
     public class PatientsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        private AzureBlobService azureBlobService = new AzureBlobService();
         // GET: Patients
         public ActionResult Index()
         {
