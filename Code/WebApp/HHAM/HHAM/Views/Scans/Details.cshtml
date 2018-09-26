@@ -1,0 +1,54 @@
+﻿@model HHAM.Models.Photo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container" style="padding-top:10px;">
+
+    <div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card" style="max-width: 40rem;">
+                    <img src="@Html.DisplayFor(model => model.DisplayURL)" class="card-img-top">
+                    <div class="card-body text-primary">
+                        <h5 class="card-title">Inital Image</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="card" style="max-width: 35rem;">
+                    <img src="@Html.DisplayFor(model => model.DisplayURL)" class="card-img-top">
+                    <div class="card-body text-primary">
+                        <h5 class="card-title">Analysed Image</h5>
+                    </div>
+                </div>
+            </div>
+            <aside class="col-sm-6">
+                <article class="card-body p-5">
+                    <h3 class="title mb-3">Name: @Html.DisplayFor(model => model.Name)</h3>
+                    <dl class="date-detail-wrap">
+                        <dt>Date Added: </dt>
+                        <dd><p>@Model.DateAdded.Date.ToString("dd MMM yyyy")</p></dd>
+                    </dl> <!-- price-detail-wrap .// -->
+                    <dl class="item-property">
+                        <dt>Description:</dt>
+                        <dd>
+                            <p>
+                                @Html.DisplayFor(model => model.Notes)
+                            </p>
+                        </dd>
+                    </dl>
+                   
+                    <hr>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-lg btn-primary text-uppercase"})
+                    
+                </article>
+            </aside>
+        </div>
+    </div>
+
+</div>
