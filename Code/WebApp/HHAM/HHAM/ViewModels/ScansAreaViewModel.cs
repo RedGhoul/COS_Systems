@@ -6,8 +6,9 @@ using System.Web;
 
 namespace HHAM.ViewModels
 {
-    public class PhotoAreaViewModel
+    public class ScansAreaViewModel
     {
         public ICollection<Photo> Scans { get; set; }
+        public Patient Patient { get; set; }
     }
 }

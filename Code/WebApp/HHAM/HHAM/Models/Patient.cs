@@ -34,9 +34,6 @@ namespace HHAM.Models
 
         public string Notes { get; set; }
 
-        [Display(Name = "Patient Scans")]
-        public ICollection<Photo> Scans { get; set; }
-
         [Display(Name = "Care Givers")]
         public ICollection<UserProfileInfo> CareGivers { get; set; }
 
