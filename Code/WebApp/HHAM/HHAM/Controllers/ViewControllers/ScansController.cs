@@ -8,17 +8,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HHAM.Models;
+using HHAM.ViewModels;
 
 namespace HHAM.Controllers
 {
-    public class PhotosController : Controller
+    public class ScansController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Photos
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string PatientNumber)
         {
-            return View(await db.Photos.ToListAsync());
+            ScansAreaViewModel ViewModel = new ScansAreaViewModel {
+                Patient = db.Patient.Where(x => x.PatientNumber == PatientNumber).FirstOrDefault()
+            };
+            return View(ViewModel);
         }
 
         // GET: Photos/Details/5
@@ -37,7 +40,7 @@ namespace HHAM.Controllers
         }
 
         // GET: Photos/Create
-        public ActionResult Create()
+        public ActionResult AddNewScan()
         {
             return View();
         }
@@ -47,7 +50,7 @@ namespace HHAM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,DateAdded,DisplayURL,DisplayURLProcessedImage,Notes")] Photo photo)
+        public async Task<ActionResult> AddNewScan([Bind(Include = "Id,Name,DateAdded,DisplayURL,DisplayURLProcessedImage,Notes")] Photo photo)
         {
             if (ModelState.IsValid)
             {
