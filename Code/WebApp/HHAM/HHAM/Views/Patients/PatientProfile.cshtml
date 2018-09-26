@@ -25,14 +25,15 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#Scans">Most Recent Scans</a>
                 </li>
-                <li class="nav-item">
-                    @Html.ActionLink("All Scans", "UserScans", null, new { @class = "nav-link" })
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#CareGivers">Care Givers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#Notes">Notes</a>
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("All Scans", "Index", "Scans", new { Model.PatientNumber }, new { @class = "nav-link" })
                 </li>
             </ul>
         </div>
@@ -164,7 +165,7 @@
                 <div class="card-deck">
 
                     @foreach (var item in Model.CareGivers)
-                    {
+                            {
                         <div class="card" style="max-width: 10rem;">
                             <img class="card-img-top" src="@item.UrlProfilePicture" alt="Card image cap">
                             <div class="card-body">
@@ -226,7 +227,7 @@
                 $('body').scrollspy({
                             target: '#sideNav'
                 });
-            });
+                        });
         </script>
     }
 

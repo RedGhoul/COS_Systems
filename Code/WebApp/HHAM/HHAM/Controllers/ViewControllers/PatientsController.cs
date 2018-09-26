@@ -41,6 +41,7 @@ namespace HHAM.Controllers
             {
                 FirstName = patient.FirstName,
                 LastName = patient.LastName,
+                PatientNumber = patient.PatientNumber,
                 Age = patient.Age,
                 CurrentGender = patient.Gender,
                 Weight = patient.Weight,

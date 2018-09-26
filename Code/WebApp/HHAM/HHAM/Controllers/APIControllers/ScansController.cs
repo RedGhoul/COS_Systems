@@ -13,14 +13,16 @@ using HHAM.Models;
 
 namespace HHAM.Controllers.APIControllers
 {
-    public class PhotosController : ApiController
+    public class ScansController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Photos
-        public IQueryable<Photo> GetPhotos()
+        [Route("api/Patient/Scans/{id}")]
+        public async Task<IHttpActionResult> GetPatientScans(string id)
         {
-            return db.Photos;
+            // got to call the blob service here
+            var temp = await db.Photos.ToListAsync();
+            return Ok(temp);
         }
 
         // GET: api/Photos/5

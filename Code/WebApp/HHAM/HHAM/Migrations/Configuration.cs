@@ -31,6 +31,42 @@ namespace HHAM.Migrations
             UserProfileInfo DoctorProfile= null;
             UserProfileInfo NurseProfile = null;
 
+            if (context.Photos.ToList().Count == 0)
+            {
+                context.Photos.Add(new Photo
+                {
+                    Name = "Scan_1",
+                    DateAdded = DateAdmited,
+                    DisplayURL = "https://ccr.cancer.gov/sites/default/files/hcc_clinical_trial_-_467x363_1.jpg",
+                    DisplayURLProcessedImage = "https://ccr.cancer.gov/sites/default/files/hcc_clinical_trial_-_467x363_1.jpg",
+                    Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10)
+                });
+                context.Photos.Add(new Photo
+                {
+                    Name = "Scan_2",
+                    DateAdded = DateAdmited,
+                    DisplayURL = "https://www.amberusa.com/blog/wp-content/uploads/2018/04/rp_170308_normal_ct_abdomen_800x6001.jpg",
+                    DisplayURLProcessedImage = "https://www.amberusa.com/blog/wp-content/uploads/2018/04/rp_170308_normal_ct_abdomen_800x6001.jpg",
+                    Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10)
+                });
+                context.Photos.Add(new Photo
+                {
+                    Name = "Scan_3",
+                    DateAdded = DateAdmited,
+                    DisplayURL = "https://img.medscapestatic.com/pi/meds/ckb/98/16798tn.jpg",
+                    DisplayURLProcessedImage = "https://img.medscapestatic.com/pi/meds/ckb/98/16798tn.jpg",
+                    Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10)
+                });
+                context.Photos.Add(new Photo
+                {
+                    Name = "Scan_4",
+                    DateAdded = DateAdmited,
+                    DisplayURL = "https://www.radiology.vcu.edu/images/photos/Lung%20Cancer%20CT%20Scan_Web.jpg",
+                    DisplayURLProcessedImage = "https://www.radiology.vcu.edu/images/photos/Lung%20Cancer%20CT%20Scan_Web.jpg",
+                    Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10)
+                });
+            }
+
             if (context.Roles.ToList().Count == 0)
             {
                 roleManager.Create(new IdentityRole

@@ -14,6 +14,7 @@ namespace HHAM.ViewModels
         // Side Bar Section
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string PatientNumber { get; set; }
 
         // Stats Section
         public int Age { get; set; }
