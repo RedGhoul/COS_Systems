@@ -13,6 +13,7 @@ using HHAM.Services;
 
 namespace HHAM.Controllers
 {
+    [Authorize]
     public class PatientsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
