@@ -15,6 +15,7 @@ Code and Report Documents. The Report Documents contain folders that subdivide b
 COS uses a number of open source and closed source technolgies:
 
 - ASPNET MVC
+- Flask
 - Razor Pages 
 - JQuery
 - Tensor Flow

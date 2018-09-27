@@ -1,3 +1,3 @@
-# This Folder Contains WEB APP
+# This Folder Contains WEB APPs
 
-# Contains Senstive Info such as DB Passwords and Azure Secrets
+Also contains Senstive Info such as DB Passwords and Azure Secrets
