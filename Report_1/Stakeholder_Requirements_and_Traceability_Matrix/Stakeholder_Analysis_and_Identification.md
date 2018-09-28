@@ -1,14 +1,14 @@
 # Stakeholder Analysis and Identification (still in progress)
 The design of the Cognitive Oncology System (COS) will be based on the interests, needs and requirements of the stakeholders. The web-based application will allow the authorized user to view patient diagnoses’, statistics, and general medical history. Using image segmentation, it will also allow the user to monitor patient tumor growth and notify the user of any changes. In this section, we will clearly identify the stakeholders, the requirements of the stakeholders, and how we will model our project according to general requirements and laws.
 
-As the stakeholders hold a direct influence on the final product, it is necessary to include a breakdown analysis of stakeholder requirements, and methods to control stakeholder engagement. Stakeholders will be categorized for planning and management purposes. The general steps include identifying the stakeholder, planning the stakeholders management, managing the stakeholders engagement, then finally controlling the stakeholders engagement. A variety of tools will be used to analyze this relationship, and the final results will be integrated to maximize the products success. 
+As the stakeholders hold a direct influence on the final product, it is necessary to include a breakdown analysis of stakeholder requirements and methods to control stakeholder engagement. Stakeholders will be categorized for planning and management purposes. The general steps include identifying the stakeholder, planning and executing stakeholder management, then finally managing and controlling the level of stakeholder engagement. A variety of tools will be used to analyze this relationship, and the final results will be integrated to maximize the products success. The stakeholders will also be categorized based on interests. Common interests include economics, social, wor/time efficiency and safety and security. 
 
 The stakeholders of our final product can be divided into three categories: 
 - Primary stakeholders
 - Secondary stakeholders
 - Key stakeholders
 
-It should also be noted that each stakeholder holds a relation to one another, these interactions between each type directly affects the outcome of our product. The three categories are explained in more detail below.
+It should also be noted that each stakeholder holds a relation to one another, these interactions between each type directly affects the outcome of our product. The influence of a certain group is based on level of resources, power and type of resources readily available. The three categories are explained in more detail below.
 
 The primary stakeholders are comprised of individuals who have a direct impact on our product, or who are directly involved with the product. In this case, our primary stakeholders are the patients whose medical images will be analyzed. The patients are the individuals who will be directly affected by the results of our product, as our product will help identify the appropriate tumors and hold their medical record. 
 
@@ -25,9 +25,4 @@ The power/interest grid is a common tool used in stakeholder analysis, where it 
 This table can also be used for marketing purposes. We can determine the most effective level of engagement based on level of interest and power the group has following the products release. TBC.
 
 
-Common interests from stakeholders:
-- Economics
-- Social Chance
-- Work/Time efficiency 
-- Safety and security
 
