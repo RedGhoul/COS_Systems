@@ -1,7 +1,7 @@
 # Stakeholder Analysis and Identification (still in progress)
 The design of the Cognitive Oncology System (COS) will be based on the interests, needs and requirements of the stakeholders. The web-based application will allow the authorized user to view patient diagnoses’, statistics, and general medical history. Using image segmentation, it will also allow the user to monitor patient tumor growth and notify the user of any changes. In this section, we will clearly identify the stakeholders, the requirements of the stakeholders, and how we will model our project according to general requirements and laws.
 
-As the stakeholders hold a direct influence on the final product, it is necessary to include a breakdown analysis of stakeholder requirements and methods to control stakeholder engagement. Stakeholders will be categorized for planning and management purposes. The general steps include identifying the stakeholder, planning and executing stakeholder management, then finally managing and controlling the level of stakeholder engagement. A variety of tools will be used to analyze this relationship, and the final results will be integrated to maximize the products success. The stakeholders will also be categorized based on interests. Common interests include economics, social, wor/time efficiency and safety and security. 
+As the stakeholders hold a direct influence on the final product, it is necessary to include a breakdown analysis of stakeholder requirements and methods to control stakeholder engagement. Stakeholders will be categorized for planning and management purposes. The general steps include identifying the stakeholder, planning and executing stakeholder management, then finally managing and controlling the level of stakeholder engagement. A variety of tools will be used to analyze this relationship, and the final results will be integrated to maximize the products success. The stakeholders will also be categorized based on interests. Common interests include economics, social, work/time efficiency and safety and security. 
 
 The stakeholders of our final product can be divided into three categories: 
 - Primary stakeholders
@@ -20,9 +20,11 @@ Our key stakeholders includes the individuals who have the greatest influence in
 
 The key stakeholders also include those in management, and those who make final decisions when purchasing hospital softwares and equipment. This group is comprised of user managers, and hospital committees/boards. These committees manage evaluation, selection, and purchase of medical devices, which is why they are included as our key stakeholders.
 
-The power/interest grid is a common tool used in stakeholder analysis, where it clearly organizes current stakeholders by their influence and interest in the product. As it is not possible to satisfy every individual, it is necessary to prioritize stakeholders in this manner. Table X displays this relationship (in word doc, will attach)
+The power/interest grid is a common tool used in stakeholder analysis, where it clearly organizes current stakeholders by their influence and interest in the product. As it is not possible to satisfy every individual, it is necessary to prioritize stakeholders in this manner for marketing purposes. Table X displays this relationship (in word doc, will attach)
 
-This table can also be used for marketing purposes. We can determine the most effective level of engagement based on level of interest and power the group has following the products release. TBC.
+We can determine the most effective level of engagement based on level of interest and power each group has following the products release. Groups listed under high interest-high influence requires close management following the products release. For overall customer satisfaction, it would be most effective to provide information and updates to those under the high interest category, and monitor those in the low-interest category.
+
+TBC
 
 
 
