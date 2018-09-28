@@ -1,0 +1,42 @@
+﻿@model HHAM.Models.RegisterViewModel
+
+<div class="d-flex justify-content-center align-items-center container ">
+    <div class="row" style="padding-top:5%;">
+        <div class="card-body">
+            <h5 class="card-title text-center">Create a new account</h5>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-signin", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-label-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-label-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-label-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-label-group" style="padding-top:10px;">
+                    <input type="submit" class="btn btn-default" value="Register" />
+                </div>
+
+            }
+        </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+   
