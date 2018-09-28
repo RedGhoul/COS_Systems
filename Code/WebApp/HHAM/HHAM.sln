@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHAM", "HHAM\HHAM.csproj", "{64C4135D-8B8E-46B5-9482-F6215D0FAF71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHAM.Tests", "HHAM.Tests\HHAM.Tests.csproj", "{79124CE4-B719-43A5-8110-C7C8715FD0B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64C4135D-8B8E-46B5-9482-F6215D0FAF71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64C4135D-8B8E-46B5-9482-F6215D0FAF71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64C4135D-8B8E-46B5-9482-F6215D0FAF71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64C4135D-8B8E-46B5-9482-F6215D0FAF71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79124CE4-B719-43A5-8110-C7C8715FD0B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79124CE4-B719-43A5-8110-C7C8715FD0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79124CE4-B719-43A5-8110-C7C8715FD0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79124CE4-B719-43A5-8110-C7C8715FD0B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCA062F7-0617-4D5B-A8F0-8C11B1B67DE7}
+	EndGlobalSection
+EndGlobal

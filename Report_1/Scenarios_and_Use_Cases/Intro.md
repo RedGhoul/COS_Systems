@@ -1,0 +1,1 @@
+Nearly all design commences with a capture of scenarios and/or use cases that help define the functional requirements of a system. These scenarios are helpful in also defining the acceptance tests.
