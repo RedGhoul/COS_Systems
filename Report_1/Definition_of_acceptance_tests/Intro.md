@@ -1,3 +1,2 @@
 # Acceptance Tests
-# Our Cognitive Oncology system will undergo a number of testing processes during development before it is available for customer use.
-
+# Our Cognitive Oncology system will undergo a number of testing processes during development before it is available for customer use. The point of testing is to ensure our product meets all the engineering requirements. There will be tests that take place as frequently as possible since its is more cost efficient to recognize an issues earlier than later on in a projects life cycle.
