@@ -10,4 +10,3 @@
 
 
 ## Training Methodology
-
