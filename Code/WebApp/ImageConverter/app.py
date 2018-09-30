@@ -1,5 +1,5 @@
 import os, uuid, sys
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect, url_for, jsonify
 from azure.storage.blob import BlockBlobService
 import mritopng
 app = Flask(__name__)
@@ -10,9 +10,14 @@ key = '93suLFnShxYbT2AvchF4IIE5RGjs1RdWTQl5SGiETLqJPuhBIfsK6rpWkc6rQhMhw1VW/ZNNy
 container = 'pscans'
 
 # http://127.0.0.1:5000/CF?patientName=Avaneesa&scanNum=1
-
+class returnData:
+    def __init__(self,error,msg, new_file_name):
+        self.error = error
+        self.msg = msg
+        self.new_file_name = new_file_name
+    
 @app.route('/CF')
-def convertDCM2PNG():
+def convert_DCM2PNG():
     patientName = request.args.get('patientName', default = "", type = str)
     scanNumber = request.args.get('scanNum', default = "1", type = str)
     try:
@@ -35,9 +40,9 @@ def convertDCM2PNG():
         block_blob_service.create_blob_from_path(container, png_File_name, png_File_Path)
 
     except Exception as e:
-        print(e)
+        return jsonify(returnData(str(e),"null","null"))
 
-    return 'YOLO LYFE'
+    return jsonify(returnData("null","Conversion Finished",png_File_name))
 
 if __name__ == '__main__':
     app.run()
