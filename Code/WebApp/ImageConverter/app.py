@@ -15,6 +15,13 @@ class returnData:
         self.error = error
         self.msg = msg
         self.new_file_name = new_file_name
+
+    def to_JSON(self):
+        return {
+            'error': self.error,
+            'msg': self.msg,
+            'new_file_name': self.new_file_name
+        }
     
 @app.route('/CF')
 def convert_DCM2PNG():
@@ -34,15 +41,17 @@ def convert_DCM2PNG():
         
         png_File_name =  patientName + "_PNG_" + scanNumber + ".PNG"
         png_File_Path = os.path.join(local_path, png_File_name)
-
+        
         mritopng.convert_file(full_path_to_file,png_File_Path,True)
 
         block_blob_service.create_blob_from_path(container, png_File_name, png_File_Path)
 
+        os.remove(full_path_to_file)
+        os.remove(png_File_Path)
     except Exception as e:
-        return jsonify(returnData(str(e),"null","null"))
+        return jsonify(returnData(str(e),"null","null").to_JSON())
 
-    return jsonify(returnData("null","Conversion Finished",png_File_name))
+    return jsonify(returnData("null","Conversion Finished",png_File_name).to_JSON())
 
 if __name__ == '__main__':
     app.run()
