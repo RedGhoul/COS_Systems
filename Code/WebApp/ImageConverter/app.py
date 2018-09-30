@@ -9,13 +9,17 @@ account = 'cosscans'
 key = '93suLFnShxYbT2AvchF4IIE5RGjs1RdWTQl5SGiETLqJPuhBIfsK6rpWkc6rQhMhw1VW/ZNNybAE5MKstgtu5Q=='
 container = 'pscans'
 
-@app.route('/')
+# http://127.0.0.1:5000/CF?patientName=Avaneesa&scanNum=1
+
+@app.route('/CF')
 def convertDCM2PNG():
+    patientName = request.args.get('patientName', default = "", type = str)
+    scanNumber = request.args.get('scanNum', default = "1", type = str)
     try:
         block_blob_service = BlockBlobService(account_name=account, account_key=key)
 
         local_path=os.path.expanduser("~/Documents")
-        local_file_name ="usersName_1.dcm"
+        local_file_name = patientName + "_DCM_" + scanNumber + ".dcm"
         full_path_to_file =os.path.join(local_path, local_file_name)
 
         generator = block_blob_service.list_blobs(container)
@@ -23,13 +27,13 @@ def convertDCM2PNG():
             if blob.name == local_file_name:
                 block_blob_service.get_blob_to_path(container, local_file_name, full_path_to_file)
         
-        png_File_name = "usersName_1.PNG"
+        png_File_name =  patientName + "_PNG_" + scanNumber + ".PNG"
         png_File_Path = os.path.join(local_path, png_File_name)
 
         mritopng.convert_file(full_path_to_file,png_File_Path,True)
 
         block_blob_service.create_blob_from_path(container, png_File_name, png_File_Path)
-        
+
     except Exception as e:
         print(e)
 
