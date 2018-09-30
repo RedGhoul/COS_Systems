@@ -4,12 +4,15 @@ from azure.storage.blob import BlockBlobService
 import mritopng
 app = Flask(__name__)
 
-# this will be put in a config file at some point
-account = 'cosscans'
-key = '93suLFnShxYbT2AvchF4IIE5RGjs1RdWTQl5SGiETLqJPuhBIfsK6rpWkc6rQhMhw1VW/ZNNybAE5MKstgtu5Q=='
-container = 'pscans'
+config = os.path.join(app.root_path, 'serviceconfig.cfg')
 
-# http://127.0.0.1:5000/CF?patientName=Avaneesa&scanNum=1
+app.config.from_pyfile(config)
+
+account = app.config['BLOB_STOR_ACCOUNT_NAME']
+key = app.config['CONTAINER_KEY']
+container = app.config['CONTAINER_NAME']
+
+
 class returnData:
     def __init__(self,error,msg, new_file_name):
         self.error = error
@@ -22,7 +25,8 @@ class returnData:
             'msg': self.msg,
             'new_file_name': self.new_file_name
         }
-    
+
+# http://127.0.0.1:5000/CF?patientName=Avaneesa&scanNum=1
 @app.route('/CF')
 def convert_DCM2PNG():
     patientName = request.args.get('patientName', default = "", type = str)
