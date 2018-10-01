@@ -86,8 +86,8 @@
                         data: "actions",
                         render: function (data, type, info) {
                             var divStart = "<div style=" + "'text-align: center;'" + ">";
-                            var editButton = "<p style=" + "'text-align:center;font-size:18px;font-weight:600;margin-right: 10px;'" + "class="+ "'btn btn-warning'" + ">" + "Edit" + "</p>";
-                            var deleteButton = "<p style=" + "'text-align:center;font-size:18px;font-weight:600;margin-right: 10px;'" + "class=" + "'btn btn-danger'" +">" + "Delete" + "</p>";
+                            var editButton = "<a style=" + "'text-align:center;font-size:18px;font-weight:600;margin-right: 10px;'" + "class=" + "'btn btn-warning'" + " href=" + "'/Patients/Edit/" + info.id +"'>" + "Edit" + "</a>";
+                            var deleteButton = "<a style=" + "'text-align:center;font-size:18px;font-weight:600;margin-right: 10px;'" + "class=" + "'btn btn-danger'" + " href=" + "'/Patients/Delete/" + info.id + "'>" + "Delete" + "</a>";
                             var divEnd = "</div>";
                             return divStart + editButton + deleteButton + divEnd;
                         }
