@@ -18,9 +18,10 @@ namespace HHAM.Models
         public string LastName { get; set; }
 
         public Gender Gender { get; set; }
-
+        [Display(Name = "Weight in Pounds (lb)")]
         public double Weight { get; set; }
 
+        [Display(Name = "Height in Centimeters (cm)")]
         public double Height { get; set; }
 
         [Display(Name = "Date Admited")]
