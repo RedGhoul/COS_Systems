@@ -25,8 +25,8 @@ namespace HHAM.ViewModels
         public bool Married { get; set; }
         public string PrimaryAddress { get; set; }
         public string SecondaryAddress { get; set; }
-        public DateTime DateAdmited { get; set; }
-        public DateTime DateReleased { get; set; }
+        public DateTime? DateAdmited { get; set; }
+        public DateTime? DateReleased { get; set; }
         public BloodType CurrentBloodType { get; set; }
         public ICollection<BloodType> BloodType { get; set; }
         public string Notes { get; set; }
