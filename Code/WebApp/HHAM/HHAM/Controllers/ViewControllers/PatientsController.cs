@@ -63,7 +63,12 @@ namespace HHAM.Controllers
         // GET: Patients/Create
         public ActionResult Create()
         {
-            return View();
+            CreatePatientViewModel createPatientViewModel = new CreatePatientViewModel
+            {
+                _genders = db.Genders.ToList(),
+                _bloodTypes = db.BloodTypes.ToList()
+            };
+            return View(createPatientViewModel);
         }
 
         // POST: Patients/Create
