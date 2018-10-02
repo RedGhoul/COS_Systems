@@ -25,6 +25,7 @@ namespace HHAM.ViewModels
         public string PrimaryAddress { get; set; }
         [Display(Name = "Secondary Address")]
         public string SecondaryAddress { get; set; }
+        [Display(Name = "Date Admited")]
         public DateTime DateAdmited { get; set; }
         public string Notes { get; set; }
 
