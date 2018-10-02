@@ -4,6 +4,8 @@
 There are a number of them out there, however the major ones are as follows. Tensor Flow, PyThorch, and Caffe 2.
 Our decision was based on three major factors.
 
+### Talk about computational Graphs
+
 ### Community
 We care about this since we want good documentation
 
