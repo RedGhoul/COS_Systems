@@ -37,12 +37,18 @@ namespace HHAM.Controllers
             {
                 return HttpNotFound();
             }
+            int calculatedAge = new DateTime(DateTime.Now.Subtract(patient.BirthDate).Ticks).Year - 1;
+            DateTime? dateReleased = null;
+            if (patient.DateReleased != null)
+            {
+                dateReleased = patient.DateReleased;
+            }
             var viewModel = new PatientProfileViewModel
             {
                 FirstName = patient.FirstName,
                 LastName = patient.LastName,
                 PatientNumber = patient.PatientNumber,
-                Age = patient.Age,
+                Age = calculatedAge,
                 CurrentGender = patient.Gender,
                 Weight = patient.Weight,
                 Height = patient.Height,
@@ -50,7 +56,7 @@ namespace HHAM.Controllers
                 PrimaryAddress = patient.PrimaryAddress,
                 SecondaryAddress = patient.SecondaryAddress,
                 DateAdmited = patient.DateAdmited,
-                DateReleased = patient.DateReleased,
+                DateReleased = dateReleased,
                 CurrentBloodType = patient.BloodType,
                 Notes = patient.Notes,
                 ScanURLs = db.Photos.ToList(),
@@ -63,22 +69,51 @@ namespace HHAM.Controllers
         // GET: Patients/Create
         public ActionResult Create()
         {
-            return View();
+            CreatePatientViewModel createPatientViewModel = new CreatePatientViewModel
+            {
+                _genders = db.Genders.ToList(),
+                _bloodTypes = db.BloodTypes.ToList()
+            };
+            return View(createPatientViewModel);
         }
 
         // POST: Patients/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,LastName,Weight,Height,DateAdmited,DateReleased,PersonalPhotoURL,Notes")] Patient patient)
+        public ActionResult Create(CreatePatientViewModel patientViewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Patient.Add(patient);
-                await db.SaveChangesAsync();
+                Patient newPatient = new Patient
+                {
+                    FirstName = patientViewModel.FirstName,
+                    LastName = patientViewModel.LastName,
+                    BirthDate = patientViewModel.BirthDate,
+                    Weight = patientViewModel.Weight,
+                    Height = patientViewModel.Height,
+                    Married = patientViewModel.Married,
+                    PrimaryAddress = patientViewModel.PrimaryAddress,
+                    SecondaryAddress = patientViewModel.SecondaryAddress,
+                    DateAdmited = patientViewModel.DateAdmited,
+                    Notes = patientViewModel.Notes,
+                    Gender = db.Genders.Where(x => x.Id == patientViewModel.SelectedGenderId).FirstOrDefault(),
+                    BloodType = db.BloodTypes.Where(x => x.Id == patientViewModel.SelectedBloodTypeId).FirstOrDefault(),
+                    DateReleased = patientViewModel.DateAdmited.AddDays(60)
+                };
+
+                db.Patient.Add(newPatient);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(patient);
+            catch (Exception)
+            {
+                CreatePatientViewModel createPatientViewModel = new CreatePatientViewModel
+                {
+                    _genders = db.Genders.ToList(),
+                    _bloodTypes = db.BloodTypes.ToList()
+                };
+                return View(createPatientViewModel);
+            }
         }
 
         // GET: Patients/Edit/5

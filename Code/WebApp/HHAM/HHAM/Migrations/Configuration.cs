@@ -246,7 +246,7 @@ namespace HHAM.Migrations
                         {
                             FirstName = personGenerator.GenerateRandomFirstName(),
                             LastName = personGenerator.GenerateRandomLastName(),
-                            Age = gen.Next(26, 80),
+                            BirthDate = RandomDay(),
                             PatientNumber = Guid.NewGuid().ToString(),
                             Weight = gen.Next(120,205),
                             Height = gen.Next(100,200),
@@ -267,7 +267,7 @@ namespace HHAM.Migrations
                         {
                             FirstName = personGenerator.GenerateRandomFirstName(),
                             LastName = personGenerator.GenerateRandomLastName(),
-                            Age = gen.Next(26, 80),
+                            BirthDate = RandomDay(),
                             PatientNumber = Guid.NewGuid().ToString(),
                             Weight = gen.Next(120, 205),
                             Height = gen.Next(100, 200),

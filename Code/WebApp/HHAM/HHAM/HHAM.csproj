@@ -291,6 +291,14 @@
     <Compile Include="Migrations\201809262040180_TookOutScansFromPatient.Designer.cs">
       <DependentUpon>201809262040180_TookOutScansFromPatient.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810020153545_changedAgeToBirthDate.cs" />
+    <Compile Include="Migrations\201810020153545_changedAgeToBirthDate.Designer.cs">
+      <DependentUpon>201810020153545_changedAgeToBirthDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810020224057_madeDateReleasedNullable.cs" />
+    <Compile Include="Migrations\201810020224057_madeDateReleasedNullable.Designer.cs">
+      <DependentUpon>201810020224057_madeDateReleasedNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BloodType.cs" />
@@ -303,6 +311,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AzureBlobService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CreatePatientViewModel.cs" />
     <Compile Include="ViewModels\PatientProfileViewModel.cs" />
     <Compile Include="ViewModels\ScansAreaViewModel.cs" />
   </ItemGroup>
@@ -412,6 +421,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809262040180_TookOutScansFromPatient.resx">
       <DependentUpon>201809262040180_TookOutScansFromPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810020153545_changedAgeToBirthDate.resx">
+      <DependentUpon>201810020153545_changedAgeToBirthDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810020224057_madeDateReleasedNullable.resx">
+      <DependentUpon>201810020224057_madeDateReleasedNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
