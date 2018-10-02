@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+
 namespace HHAM.Models
 {
     public class Patient
     {
         public int Id { get; set; }
         public string PatientNumber { get; set; }
-        public int Age { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -25,10 +27,10 @@ namespace HHAM.Models
         public double Height { get; set; }
 
         [Display(Name = "Date Admited")]
-        public DateTime DateAdmited { get; set; }
+        public DateTime? DateAdmited { get; set; }
 
         [Display(Name = "Date Released")]
-        public DateTime DateReleased { get; set; }
+        public DateTime? DateReleased { get; set; }
 
         [Display(Name = "Personal Photo")]
         public string PersonalPhotoURL { get; set; }
