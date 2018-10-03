@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using HHAM.Models;
 using HHAM.ViewModels;
 using HHAM.Services;
+using AutoMapper;
 
 namespace HHAM.Controllers
 {
@@ -31,37 +32,31 @@ namespace HHAM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Patient patient = db.Patient.Include(x => x.Gender).Include(x => x.CareGivers).Include(x => x.BloodType).Where(x => x.Id == id).FirstOrDefault();
+
+            Patient patient = db.Patient.Include(x => x.Gender)
+                .Include(x => x.CareGivers)
+                .Include(x => x.BloodType)
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
 
             if (patient == null)
             {
                 return HttpNotFound();
             }
+
+            PatientProfileViewModel viewModel = new PatientProfileViewModel();
+
+            Mapper.Map<Patient, PatientProfileViewModel>(patient, viewModel);
+
             int calculatedAge = new DateTime(DateTime.Now.Subtract(patient.BirthDate).Ticks).Year - 1;
+
             DateTime? dateReleased = null;
             if (patient.DateReleased != null)
             {
                 dateReleased = patient.DateReleased;
             }
-            var viewModel = new PatientProfileViewModel
-            {
-                FirstName = patient.FirstName,
-                LastName = patient.LastName,
-                PatientNumber = patient.PatientNumber,
-                Age = calculatedAge,
-                CurrentGender = patient.Gender,
-                Weight = patient.Weight,
-                Height = patient.Height,
-                Married = patient.Married,
-                PrimaryAddress = patient.PrimaryAddress,
-                SecondaryAddress = patient.SecondaryAddress,
-                DateAdmited = patient.DateAdmited,
-                DateReleased = dateReleased,
-                CurrentBloodType = patient.BloodType,
-                Notes = patient.Notes,
-                ScanURLs = db.Photos.ToList(),
-                CareGivers = patient.CareGivers
-            };
+            viewModel.Age = calculatedAge;
+            viewModel.DateReleased = dateReleased;
 
             return View(viewModel);
         }
@@ -84,23 +79,10 @@ namespace HHAM.Controllers
         {
             try
             {
-                Patient newPatient = new Patient
-                {
-                    FirstName = patientViewModel.FirstName,
-                    LastName = patientViewModel.LastName,
-                    BirthDate = patientViewModel.BirthDate,
-                    Weight = patientViewModel.Weight,
-                    Height = patientViewModel.Height,
-                    Married = patientViewModel.Married,
-                    PrimaryAddress = patientViewModel.PrimaryAddress,
-                    SecondaryAddress = patientViewModel.SecondaryAddress,
-                    DateAdmited = patientViewModel.DateAdmited,
-                    Notes = patientViewModel.Notes,
-                    Gender = db.Genders.Where(x => x.Id == patientViewModel.SelectedGenderId).FirstOrDefault(),
-                    BloodType = db.BloodTypes.Where(x => x.Id == patientViewModel.SelectedBloodTypeId).FirstOrDefault(),
-                    DateReleased = patientViewModel.DateAdmited.AddDays(60)
-                };
-
+                Patient newPatient = new Patient();
+                Mapper.Map<CreatePatientViewModel, Patient>(patientViewModel, newPatient);
+                newPatient.Gender = db.Genders.Where(x => x.Id == patientViewModel.SelectedGenderId).FirstOrDefault();
+                newPatient.BloodType = db.BloodTypes.Where(x => x.Id == patientViewModel.SelectedBloodTypeId).FirstOrDefault();
                 db.Patient.Add(newPatient);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -123,55 +105,86 @@ namespace HHAM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Patient patient = await db.Patient.FindAsync(id);
+
+            Patient patient = db.Patient.Include(x => x.Gender)
+            .Include(x => x.CareGivers)
+            .Include(x => x.BloodType)
+            .Where(x => x.Id == id)
+            .FirstOrDefault();
+
             if (patient == null)
             {
                 return HttpNotFound();
             }
-            return View(patient);
+
+            int foundSelectedBloodTypeId = 0;
+
+            if (patient.BloodType != null)
+            {
+                foundSelectedBloodTypeId = patient.BloodType.Id;
+            }
+
+            int foundSelectedGenderId = 0;
+            if (patient.Gender != null)
+            {
+                foundSelectedGenderId = patient.Gender.Id;
+            }
+
+            EditPatientViewModel editPatientViewModel = new EditPatientViewModel
+            {
+                SelectedBloodTypeId = foundSelectedBloodTypeId,
+                SelectedGenderId = foundSelectedGenderId,
+                _genders = db.Genders.ToList(),
+                _bloodTypes = db.BloodTypes.ToList(),
+            };
+
+            Mapper.Map<Patient, EditPatientViewModel>(patient, editPatientViewModel);
+            
+            return View(editPatientViewModel);
         }
 
         // POST: Patients/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Weight,Height,DateAdmited,DateReleased,PersonalPhotoURL,Notes")] Patient patient)
+        public ActionResult Edit(EditPatientViewModel editPatientViewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(patient).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                Patient modifiedPatient = db.Patient.Include(x => x.Gender)
+                .Include(x => x.CareGivers)
+                .Include(x => x.BloodType)
+                .Where(x => x.Id == editPatientViewModel.Id)
+                .FirstOrDefault();
+
+                Mapper.Map<EditPatientViewModel, Patient>(editPatientViewModel, modifiedPatient);
+                modifiedPatient.Gender = db.Genders.Where(x => x.Id == editPatientViewModel.SelectedGenderId).FirstOrDefault();
+                modifiedPatient.BloodType = db.BloodTypes.Where(x => x.Id == editPatientViewModel.SelectedBloodTypeId).FirstOrDefault();
+                db.Entry(modifiedPatient).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(patient);
+            catch (Exception)
+            {
+                EditPatientViewModel createPatientViewModel = new EditPatientViewModel
+                {
+                    _genders = db.Genders.ToList(),
+                    _bloodTypes = db.BloodTypes.ToList()
+                };
+                return View(createPatientViewModel);
+            }
         }
 
-        // GET: Patients/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Patient patient = await db.Patient.FindAsync(id);
-            if (patient == null)
-            {
-                return HttpNotFound();
-            }
-            return View(patient);
-        }
-
+        // gonna have to make an API for this
         // POST: Patients/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            Patient patient = await db.Patient.FindAsync(id);
-            db.Patient.Remove(patient);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> DeleteConfirmed(int id)
+        //{
+        //    Patient patient = await db.Patient.FindAsync(id);
+        //    db.Patient.Remove(patient);
+        //    await db.SaveChangesAsync();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
