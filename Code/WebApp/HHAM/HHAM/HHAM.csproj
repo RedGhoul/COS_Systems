@@ -305,6 +305,10 @@
     <Compile Include="Migrations\201810030240457_PhotosToScans.Designer.cs">
       <DependentUpon>201810030240457_PhotosToScans.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810031757140_changedNameAndAddedDICOM_URL.cs" />
+    <Compile Include="Migrations\201810031757140_changedNameAndAddedDICOM_URL.Designer.cs">
+      <DependentUpon>201810031757140_changedNameAndAddedDICOM_URL.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BloodType.cs" />
@@ -438,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810030240457_PhotosToScans.resx">
       <DependentUpon>201810030240457_PhotosToScans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810031757140_changedNameAndAddedDICOM_URL.resx">
+      <DependentUpon>201810031757140_changedNameAndAddedDICOM_URL.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

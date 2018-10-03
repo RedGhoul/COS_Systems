@@ -10,8 +10,9 @@ namespace HHAM.DataTransferObjects
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime DateAdded { get; set; }
-        public string DisplayURL { get; set; }
-        public string DisplayURLProcessedImage { get; set; }
+        public string ScanURL { get; set; }
+        public string ScanURLProcessed { get; set; }
+        public string DICOM_URL { get; set; }
         public string Notes { get; set; }
     }
 }

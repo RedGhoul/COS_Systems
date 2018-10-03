@@ -174,18 +174,6 @@ namespace HHAM.Controllers
             }
         }
 
-        // gonna have to make an API for this
-        // POST: Patients/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> DeleteConfirmed(int id)
-        //{
-        //    Patient patient = await db.Patient.FindAsync(id);
-        //    db.Patient.Remove(patient);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction("Index");
-        //}
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

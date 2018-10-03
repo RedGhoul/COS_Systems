@@ -11,5 +11,6 @@ namespace HHAM.DataTransferObjects
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateAdmited { get; set; }
+        public DateTime DateReleased { get; set; }
     }
 }
