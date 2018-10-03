@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using HHAM.Models;
+using AutoMapper;
+using HHAM.DataTransferObjects;
 
 namespace HHAM.Controllers.APIControllers
 {
@@ -20,16 +22,27 @@ namespace HHAM.Controllers.APIControllers
         [Route("api/Patient/All/")]
         public async Task<IHttpActionResult> GetPatient()
         {
-            var listofPatients = await db.Patient.Select(x => new
-            {
-                id = x.Id,
-                firstName = x.FirstName,
-                lastName = x.LastName,
-                dateAdmitted = x.DateAdmited,
-                dateReleased = x.DateReleased
-            }).ToListAsync();
+            List<Patient> listofPatients = await db.Patient.ToListAsync();
+            List<PatientDto> patientDtos = new List<PatientDto>();
+            Mapper.Map<List<Patient>, List<PatientDto>>(listofPatients, patientDtos);
+            return Ok(patientDtos);
+        }
 
-            return Ok(listofPatients);
+        [Route("api/Patient/Delete/{id}")]
+        public async Task<HttpResponseMessage> DeletePatient(int id)
+        {
+            Patient patient = await db.Patient.FindAsync(id);
+            if (patient == null)
+            {
+                string errorMsg = "We can not complete that action right now";
+                HttpError err = new HttpError(errorMsg);
+                return Request.CreateResponse(HttpStatusCode.NotFound, err);
+            }
+
+            db.Patient.Remove(patient);
+            await db.SaveChangesAsync();
+
+            return Request.CreateResponse(HttpStatusCode.OK, patient);
         }
 
         // GET: api/Patients/5
@@ -95,22 +108,7 @@ namespace HHAM.Controllers.APIControllers
             return CreatedAtRoute("DefaultApi", new { id = patient.Id }, patient);
         }
 
-        // DELETE: api/Patients/5
-        [ResponseType(typeof(Patient))]
-        public async Task<IHttpActionResult> DeletePatient(int id)
-        {
-            Patient patient = await db.Patient.FindAsync(id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
-
-            db.Patient.Remove(patient);
-            await db.SaveChangesAsync();
-
-            return Ok(patient);
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
