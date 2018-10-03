@@ -87,13 +87,39 @@
                         render: function (data, type, info) {
                             var divStart = "<div style=" + "'text-align: center;'" + ">";
                             var editButton = "<a style=" + "'text-align:center;font-size:18px;font-weight:600;margin-right: 10px;'" + "class=" + "'btn btn-warning'" + " href=" + "'/Patients/Edit/" + info.id +"'>" + "Edit" + "</a>";
-                            var deleteButton = "<a style=" + "'text-align:center;font-size:18px;font-weight:600;margin-right: 10px;'" + "class=" + "'btn btn-danger'" + " href=" + "'/Patients/Delete/" + info.id + "'>" + "Delete" + "</a>";
+                            var deleteButton = "<a style=" + "'text-align:center;font-size:18px;font-weight:600;margin-right: 10px;'" + "class=" + "'btn btn-danger delete'" + ">" + "Delete" + "</a>";
                             var divEnd = "</div>";
                             return divStart + editButton + deleteButton + divEnd;
                         }
                     }
                 ]
             });
+            $("#Patients").on("click",
+                ".delete",
+                function () {
+                    // here we give the whole table one click handler
+                    // and then we give filter through all the clicks on the
+                    // page
+                    var button = $(this);
+                    bootbox.confirm("Are you sure you want to delete this Tutorial ?",
+                        function (result) {
+
+                            if (result) {
+                                //table.row(button.parents("tr")).remove().draw();
+                                alertify.notify('The Patient deleted :)', 'success', 5, function () { });
+                                //$.ajax({
+                                //    url: "/api/DeleteTutorials/" + button.attr("data-tutorial-id"),
+                                //    method: "DELETE",
+                                //    contentType: "application/json; charset=utf-8",
+                                //    dataType: "json",
+                                //    success: function () {
+                                       
+                                //    }
+                                //});
+                            }
+                        });
+
+                });
         });
     </script>
 }
