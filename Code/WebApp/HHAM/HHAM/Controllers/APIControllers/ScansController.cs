@@ -26,10 +26,10 @@ namespace HHAM.Controllers.APIControllers
         }
 
         // GET: api/Photos/5
-        [ResponseType(typeof(Photo))]
+        [ResponseType(typeof(Scan))]
         public async Task<IHttpActionResult> GetPhoto(int id)
         {
-            Photo photo = await db.Photos.FindAsync(id);
+            Scan photo = await db.Photos.FindAsync(id);
             if (photo == null)
             {
                 return NotFound();
@@ -40,7 +40,7 @@ namespace HHAM.Controllers.APIControllers
 
         // PUT: api/Photos/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutPhoto(int id, Photo photo)
+        public async Task<IHttpActionResult> PutPhoto(int id, Scan photo)
         {
             if (!ModelState.IsValid)
             {
@@ -74,8 +74,8 @@ namespace HHAM.Controllers.APIControllers
         }
 
         // POST: api/Photos
-        [ResponseType(typeof(Photo))]
-        public async Task<IHttpActionResult> PostPhoto(Photo photo)
+        [ResponseType(typeof(Scan))]
+        public async Task<IHttpActionResult> PostPhoto(Scan photo)
         {
             if (!ModelState.IsValid)
             {
@@ -89,10 +89,10 @@ namespace HHAM.Controllers.APIControllers
         }
 
         // DELETE: api/Photos/5
-        [ResponseType(typeof(Photo))]
+        [ResponseType(typeof(Scan))]
         public async Task<IHttpActionResult> DeletePhoto(int id)
         {
-            Photo photo = await db.Photos.FindAsync(id);
+            Scan photo = await db.Photos.FindAsync(id);
             if (photo == null)
             {
                 return NotFound();
