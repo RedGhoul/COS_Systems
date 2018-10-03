@@ -6,3 +6,8 @@ The computer with the neural network is taught to do a task by having it analyze
 
 
 ![alt text](/Report_1/Project_related_Background_and_Research_Review/neural_network_diagram.PNG)
+
+
+## What is deep-learning theory? 
+
+Deep Learning is an artificial intelligence function that imitates the workings of the human brain in processing data and creating patterns for use in decision making. Deep learning is a subset of machine learning in Artificial Intelligence (AI) that has networks capable of learning unsupervised from data that is unstructured or unlabeled.
