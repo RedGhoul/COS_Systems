@@ -18,8 +18,7 @@ namespace HHAM.ViewModels
 
         // Stats Section
         public int Age { get; set; }
-        public Gender CurrentGender { get; set; }
-        public ICollection<Gender> Gender { get; set; }
+        public Gender Gender { get; set; }
         public double Weight { get; set; }
         public double Height { get; set; }
         public bool Married { get; set; }
@@ -27,8 +26,7 @@ namespace HHAM.ViewModels
         public string SecondaryAddress { get; set; }
         public DateTime? DateAdmited { get; set; }
         public DateTime? DateReleased { get; set; }
-        public BloodType CurrentBloodType { get; set; }
-        public ICollection<BloodType> BloodType { get; set; }
+        public BloodType BloodType { get; set; }
         public string Notes { get; set; }
         public ICollection<Scan> ScanURLs { get; set; }
         public ICollection<UserProfileInfo> CareGivers { get; set; }

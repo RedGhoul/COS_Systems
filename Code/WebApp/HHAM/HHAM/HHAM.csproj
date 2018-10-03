@@ -319,6 +319,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreatePatientViewModel.cs" />
     <Compile Include="ViewModels\CreateScanViewModel.cs" />
+    <Compile Include="ViewModels\EditPatientViewModel.cs" />
     <Compile Include="ViewModels\PatientProfileViewModel.cs" />
     <Compile Include="ViewModels\ScansAreaViewModel.cs" />
   </ItemGroup>
