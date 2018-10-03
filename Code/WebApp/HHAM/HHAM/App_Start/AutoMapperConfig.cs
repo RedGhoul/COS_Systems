@@ -15,6 +15,8 @@ namespace HHAM.App_Start
         {
             CreateMap<Patient, PatientProfileViewModel>();
             CreateMap<Patient, CreatePatientViewModel>();
+            CreateMap<Patient, EditPatientViewModel>();
+
             CreateMap<Patient, PatientDto>();
 
             CreateMap<Scan, ScanDto>();
@@ -22,6 +24,8 @@ namespace HHAM.App_Start
 
 
             CreateMap<CreatePatientViewModel, Patient>();
+            CreateMap<EditPatientViewModel, Patient>();
+
             CreateMap<PatientDto, Patient>();
             CreateMap<ScanDto, Scan>();
             CreateMap<CreateScanViewModel, Scan>();
