@@ -8,7 +8,7 @@ namespace HHAM.ViewModels
 {
     public class ScansAreaViewModel
     {
-        public ICollection<Photo> Scans { get; set; }
+        public ICollection<Scan> Scans { get; set; }
         public Patient Patient { get; set; }
     }
 }

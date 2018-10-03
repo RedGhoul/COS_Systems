@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace HHAM.Models
+namespace HHAM.DataTransferObjects
 {
-    public class Photo
+    public class ScanDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
