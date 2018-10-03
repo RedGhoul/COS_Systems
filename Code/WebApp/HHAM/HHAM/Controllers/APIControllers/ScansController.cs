@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using HHAM.Models;
+using AutoMapper;
+using HHAM.DataTransferObjects;
 
 namespace HHAM.Controllers.APIControllers
 {
@@ -17,17 +19,42 @@ namespace HHAM.Controllers.APIControllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        [Route("api/Patient/Scans/{id}")]
-        public async Task<IHttpActionResult> GetPatientScans(string id)
+        [Route("api/Patient/{idPatient}/Scan/All")]
+        public async Task<HttpResponseMessage> GetPatientScans(string idPatient)
         {
-            // got to call the blob service here
-            var temp = await db.Photos.ToListAsync();
-            return Ok(temp);
+            List<Scan> Scans = await db.Photos.ToListAsync();
+            if (Scans == null)
+            {
+                string errorMsg = "We can not find any entries";
+                HttpError err = new HttpError(errorMsg);
+                return Request.CreateResponse(HttpStatusCode.NotFound, err);
+            }
+            List<ScanDto> ScanDtos = new List<ScanDto>();
+            Mapper.Map<List<Scan>, List<ScanDto>>(Scans, ScanDtos);
+            return Request.CreateResponse(HttpStatusCode.OK,ScanDtos);
         }
+
+        [Route("api/Patient/{idPatient}/Scan/Delete/{idScan}")]
+        public async Task<HttpResponseMessage> DeletePhoto(int idPatient, int idScan)
+        {
+            Scan photo = await db.Photos.FindAsync(idScan);
+            if (photo == null)
+            {
+                string errorMsg = "We can not complete that action right now";
+                HttpError err = new HttpError(errorMsg);
+                return Request.CreateResponse(HttpStatusCode.NotFound, err);
+            }
+
+            db.Photos.Remove(photo);
+            await db.SaveChangesAsync();
+
+            return Request.CreateResponse(HttpStatusCode.OK, photo);
+        }
+
 
         // GET: api/Photos/5
         [ResponseType(typeof(Scan))]
-        public async Task<IHttpActionResult> GetPhoto(int id)
+        public async Task<IHttpActionResult> GetScan(int id)
         {
             Scan photo = await db.Photos.FindAsync(id);
             if (photo == null)
@@ -88,22 +115,7 @@ namespace HHAM.Controllers.APIControllers
             return CreatedAtRoute("DefaultApi", new { id = photo.Id }, photo);
         }
 
-        // DELETE: api/Photos/5
-        [ResponseType(typeof(Scan))]
-        public async Task<IHttpActionResult> DeletePhoto(int id)
-        {
-            Scan photo = await db.Photos.FindAsync(id);
-            if (photo == null)
-            {
-                return NotFound();
-            }
-
-            db.Photos.Remove(photo);
-            await db.SaveChangesAsync();
-
-            return Ok(photo);
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
