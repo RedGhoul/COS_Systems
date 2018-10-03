@@ -57,7 +57,7 @@
                         <div class="card" id="cardstat">
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align:center">Gender</h5>
-                                <p class="card-text" style="text-align:center">@Model.CurrentGender.Text</p>
+                                <p class="card-text" style="text-align:center">@Model.Gender.Text</p>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                         <div class="card" id="cardstat">
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align:center">Date Admitted</h5>
-                                <p class="card-text" style="text-align:center">@Model.DateAdmited</p>
+                                <p class="card-text" style="text-align:center">@Model.DateAdmited.Value.ToShortDateString()</p>
                             </div>
                         </div>
                     </div>
@@ -113,7 +113,14 @@
                         <div class="card" id="cardstat">
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align:center">Date Released</h5>
-                                <p class="card-text" style="text-align:center">@Model.DateReleased</p>
+                                @if (Model.DateReleased.HasValue)
+                                {
+                                    <p class="card-text" style="text-align:center">@Model.DateReleased.Value.ToShortDateString()</p>
+                                }
+                                else
+                                {
+                                    <p class="card-text" style="text-align:center">N/A</p>
+                                }
                             </div>
                         </div>
                     </div>
@@ -121,7 +128,7 @@
                         <div class="card" id="cardstat">
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align:center">Blood Type</h5>
-                                <p class="card-text" style="text-align:center">@Model.CurrentBloodType.Text</p>
+                                <p class="card-text" style="text-align:center">@Model.BloodType.Text</p>
                             </div>
                         </div>
                     </div>

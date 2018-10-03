@@ -31,7 +31,7 @@ namespace HHAM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = await db.Photos.FindAsync(id);
+            Scan photo = await db.Photos.FindAsync(id);
             if (photo == null)
             {
                 return HttpNotFound();
@@ -50,7 +50,7 @@ namespace HHAM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddNewScan([Bind(Include = "Id,Name,DateAdded,DisplayURL,DisplayURLProcessedImage,Notes")] Photo photo)
+        public async Task<ActionResult> AddNewScan([Bind(Include = "Id,Name,DateAdded,DisplayURL,DisplayURLProcessedImage,Notes")] Scan photo)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace HHAM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = await db.Photos.FindAsync(id);
+            Scan photo = await db.Photos.FindAsync(id);
             if (photo == null)
             {
                 return HttpNotFound();
@@ -82,7 +82,7 @@ namespace HHAM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,DateAdded,DisplayURL,DisplayURLProcessedImage,Notes")] Photo photo)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,DateAdded,DisplayURL,DisplayURLProcessedImage,Notes")] Scan photo)
         {
             if (ModelState.IsValid)
             {
@@ -100,7 +100,7 @@ namespace HHAM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = await db.Photos.FindAsync(id);
+            Scan photo = await db.Photos.FindAsync(id);
             if (photo == null)
             {
                 return HttpNotFound();
@@ -113,7 +113,7 @@ namespace HHAM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Photo photo = await db.Photos.FindAsync(id);
+            Scan photo = await db.Photos.FindAsync(id);
             db.Photos.Remove(photo);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

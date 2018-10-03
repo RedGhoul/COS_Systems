@@ -226,6 +226,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Controllers\ViewControllers\ScansController.cs" />
     <Compile Include="Controllers\ViewControllers\UserProfileInfoesController.cs" />
     <Compile Include="DataTransferObjects\PatientDto.cs" />
+    <Compile Include="DataTransferObjects\ScanDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -299,6 +301,14 @@
     <Compile Include="Migrations\201810020224057_madeDateReleasedNullable.Designer.cs">
       <DependentUpon>201810020224057_madeDateReleasedNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810030240457_PhotosToScans.cs" />
+    <Compile Include="Migrations\201810030240457_PhotosToScans.Designer.cs">
+      <DependentUpon>201810030240457_PhotosToScans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810031757140_changedNameAndAddedDICOM_URL.cs" />
+    <Compile Include="Migrations\201810031757140_changedNameAndAddedDICOM_URL.Designer.cs">
+      <DependentUpon>201810031757140_changedNameAndAddedDICOM_URL.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BloodType.cs" />
@@ -306,12 +316,14 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Patient.cs" />
-    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\Scan.cs" />
     <Compile Include="Models\UserProfileInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AzureBlobService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreatePatientViewModel.cs" />
+    <Compile Include="ViewModels\CreateScanViewModel.cs" />
+    <Compile Include="ViewModels\EditPatientViewModel.cs" />
     <Compile Include="ViewModels\PatientProfileViewModel.cs" />
     <Compile Include="ViewModels\ScansAreaViewModel.cs" />
   </ItemGroup>
@@ -427,6 +439,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810020224057_madeDateReleasedNullable.resx">
       <DependentUpon>201810020224057_madeDateReleasedNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810030240457_PhotosToScans.resx">
+      <DependentUpon>201810030240457_PhotosToScans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810031757140_changedNameAndAddedDICOM_URL.resx">
+      <DependentUpon>201810031757140_changedNameAndAddedDICOM_URL.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

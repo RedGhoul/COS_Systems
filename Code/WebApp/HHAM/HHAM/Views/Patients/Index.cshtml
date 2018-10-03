@@ -72,7 +72,7 @@
                         data: "dateAdmitted",
                         render: function (data, type, info) {
                             
-                            return "<p style=" + "'text-align:center;font-size:18px;font-weight: 600;'" + ">" + formatDate(info.dateAdmitted) + "</p>";
+                            return "<p style=" + "'text-align:center;font-size:18px;font-weight: 600;'" + ">" + formatDate(info.dateAdmited) + "</p>";
                         }
                     },
                     {
@@ -87,13 +87,40 @@
                         render: function (data, type, info) {
                             var divStart = "<div style=" + "'text-align: center;'" + ">";
                             var editButton = "<a style=" + "'text-align:center;font-size:18px;font-weight:600;margin-right: 10px;'" + "class=" + "'btn btn-warning'" + " href=" + "'/Patients/Edit/" + info.id +"'>" + "Edit" + "</a>";
-                            var deleteButton = "<a style=" + "'text-align:center;font-size:18px;font-weight:600;margin-right: 10px;'" + "class=" + "'btn btn-danger'" + " href=" + "'/Patients/Delete/" + info.id + "'>" + "Delete" + "</a>";
+                            var deleteButton = "<a style=" + "'text-align:center;font-size:18px;font-weight:600;margin-right: 10px;'" + "class=" + "'btn btn-danger delete' " + "data-tutorial-id='" + info.id + "'>" + "Delete" + "</a>";
                             var divEnd = "</div>";
                             return divStart + editButton + deleteButton + divEnd;
                         }
                     }
                 ]
             });
+
+            $("#Patients").on("click",".delete",
+                function () {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure you want to delete this Patient ?",
+                        function (result) {
+                            if (result) {
+                                console.log(button.attr("data-tutorial-id"));
+                                $.ajax({
+                                    url: "/api/Patient/Delete/" + button.attr("data-tutorial-id"),
+                                    method: "DELETE",
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (result) {
+                                        console.log(result);
+                                        table.row(button.parents("tr")).remove().draw();
+                                        alertify.notify(result.firstName + " was successfully deleted", 'success', 5, function () { });
+                                    },
+                                    error: function (result) {
+                                        console.log(result);
+                                        alertify.notify(result.responseJSON.message, 'error', 5, function () { });
+                                    }
+                                });
+                            }
+                        });
+
+                });
         });
     </script>
 }
