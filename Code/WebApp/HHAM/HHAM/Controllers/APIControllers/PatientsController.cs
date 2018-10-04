@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 using HHAM.Models;
 using AutoMapper;
 using HHAM.DataTransferObjects;
+using Microsoft.AspNet.Identity;
 
 namespace HHAM.Controllers.APIControllers
 {
@@ -26,6 +27,25 @@ namespace HHAM.Controllers.APIControllers
             List<PatientDto> patientDtos = new List<PatientDto>();
             Mapper.Map<List<Patient>, List<PatientDto>>(listofPatients, patientDtos);
             return Ok(patientDtos);
+        }
+
+        [Route("api/Patient/All/CurrentUser")]
+        public HttpResponseMessage GetPatientForCurrentUser()
+        {
+            string userId = User.Identity.GetUserId();
+            UserProfileInfo currentUser = db.UserProfileInfo.Include(x => x.Patients).Where(x => x.User.Id == userId).FirstOrDefault();
+            List<Patient> listofPatients = currentUser.Patients.ToList();
+            if (currentUser == null)
+            {
+                string errorMsg = "We can not complete that action right now";
+                HttpError err = new HttpError(errorMsg);
+                return Request.CreateResponse(HttpStatusCode.NotFound, err);
+            }
+
+
+            List<PatientDto> patientDtos = new List<PatientDto>();
+            Mapper.Map<List<Patient>, List<PatientDto>>(listofPatients, patientDtos);
+            return Request.CreateResponse(HttpStatusCode.OK, patientDtos);
         }
 
         [Route("api/Patient/Delete/{id}")]
