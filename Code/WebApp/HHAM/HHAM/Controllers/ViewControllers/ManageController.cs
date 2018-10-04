@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HHAM.Models;
 using HHAM.ViewModels;
+using AutoMapper;
+using System.Data.Entity;
 
 namespace HHAM.Controllers
 {
@@ -64,13 +66,16 @@ namespace HHAM.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
             string userId = User.Identity.GetUserId();
-            UserProfileInfo currentUserProfile = db.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
-            
+            UserProfileInfo currentUserProfile = db.UserProfileInfo.Where(x => x.User.Id == userId).Include(x => x.Patients).FirstOrDefault();
+            CareGiverUserProfileViewModel careGiverUserProfileViewModel = new CareGiverUserProfileViewModel();
+            Mapper.Map<UserProfileInfo, CareGiverUserProfileViewModel>(currentUserProfile, careGiverUserProfileViewModel);
+
             var model = new ManageIndexViewModel
             {
                 HasPassword = HasPassword(),
-                CareGiverUserProfile = currentUserProfile
+                CareGiverUserProfile = careGiverUserProfileViewModel
             };
+
             return View(model);
         }
 
