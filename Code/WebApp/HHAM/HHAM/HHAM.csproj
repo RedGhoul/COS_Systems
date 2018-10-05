@@ -243,6 +243,7 @@
     <Compile Include="Controllers\ViewControllers\UserProfileInfoesController.cs" />
     <Compile Include="DataTransferObjects\PatientDto.cs" />
     <Compile Include="DataTransferObjects\ScanDto.cs" />
+    <Compile Include="DataTransferObjects\UserProfileInfoDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

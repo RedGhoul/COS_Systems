@@ -20,6 +20,7 @@ namespace HHAM.App_Start
             CreateMap<Patient, PatientDto>();
 
             CreateMap<UserProfileInfo, CareGiverUserProfileViewModel>();
+            CreateMap<UserProfileInfo, UserProfileInfoDto>();
 
             CreateMap<Scan, ScanDto>();
             CreateMap<Scan, CreateScanViewModel>();
