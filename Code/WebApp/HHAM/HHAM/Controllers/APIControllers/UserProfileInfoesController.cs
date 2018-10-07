@@ -12,16 +12,13 @@ using System.Web.Http.Description;
 using HHAM.DataTransferObjects;
 using HHAM.Models;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 
 namespace HHAM.Controllers.APIControllers
 {
     [Authorize]
     public class UserProfileInfoesController : ApiController
     {
-        public class User
-        {
-            public string FirstName { get; set; }
-        }
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // for the admin table
@@ -41,9 +38,36 @@ namespace HHAM.Controllers.APIControllers
         }
 
 
-        [Route("api/UserProfile/ChangeFirstName")]
-        public HttpResponseMessage ChangeFirstName(User user)
+        [Route("api/UserProfile/Change/FirstName")]
+        public HttpResponseMessage ChangeFirstName(UserProfileInfoDto user)
         {
+            string userId = User.Identity.GetUserId();
+            UserProfileInfo currentUserProfile = db.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
+            currentUserProfile.FirstName = user.FirstName;
+            db.Entry(currentUserProfile).State = EntityState.Modified;
+            db.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.OK, user);
+        }
+
+        [Route("api/UserProfile/Change/LastName")]
+        public HttpResponseMessage ChangeLastName(UserProfileInfoDto user)
+        {
+            string userId = User.Identity.GetUserId();
+            UserProfileInfo currentUserProfile = db.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
+            currentUserProfile.LastName = user.LastName;
+            db.Entry(currentUserProfile).State = EntityState.Modified;
+            db.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.OK, user);
+        }
+
+        [Route("api/UserProfile/Change/Description")]
+        public HttpResponseMessage ChangeDescription(UserProfileInfoDto user)
+        {
+            string userId = User.Identity.GetUserId();
+            UserProfileInfo currentUserProfile = db.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
+            currentUserProfile.Description = user.Description;
+            db.Entry(currentUserProfile).State = EntityState.Modified;
+            db.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
