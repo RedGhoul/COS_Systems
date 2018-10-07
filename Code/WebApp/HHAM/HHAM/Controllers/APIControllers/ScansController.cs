@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 using HHAM.Models;
 using AutoMapper;
 using HHAM.DataTransferObjects;
+using MultipartDataMediaFormatter.Infrastructure;
 
 namespace HHAM.Controllers.APIControllers
 {
@@ -19,7 +20,7 @@ namespace HHAM.Controllers.APIControllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        [Route("api/Patient/{idPatient}/Scan/All")]
+        [Route("api/Scans/{idPatient}")]
         public async Task<HttpResponseMessage> GetPatientScans(string idPatient)
         {
             List<Scan> Scans = await db.Photos.ToListAsync();
@@ -34,23 +35,22 @@ namespace HHAM.Controllers.APIControllers
             return Request.CreateResponse(HttpStatusCode.OK,ScanDtos);
         }
 
-        [Route("api/Patient/{idPatient}/Scan/Delete/{idScan}")]
-        public async Task<HttpResponseMessage> DeletePhoto(int idPatient, int idScan)
+        [Route("api/Scans/Delete/{idScan}")]
+        public async Task<HttpResponseMessage> DeletePhoto(int idScan)
         {
-            Scan photo = await db.Photos.FindAsync(idScan);
-            if (photo == null)
+            Scan scan = await db.Photos.FindAsync(idScan);
+            if (scan == null)
             {
                 string errorMsg = "We can not complete that action right now";
                 HttpError err = new HttpError(errorMsg);
                 return Request.CreateResponse(HttpStatusCode.NotFound, err);
             }
 
-            db.Photos.Remove(photo);
+            db.Photos.Remove(scan);
             await db.SaveChangesAsync();
 
-            return Request.CreateResponse(HttpStatusCode.OK, photo);
+            return Request.CreateResponse(HttpStatusCode.OK, scan);
         }
-
 
         // GET: api/Photos/5
         [ResponseType(typeof(Scan))]

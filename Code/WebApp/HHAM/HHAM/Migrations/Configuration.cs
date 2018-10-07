@@ -102,7 +102,8 @@ namespace HHAM.Migrations
                 context.UserProfileInfo.Add(new UserProfileInfo
                 {
                     Description = "I am an ADMIN !!! YAY ME",
-                    Name = "Nancy Cook",
+                    FirstName = "Nancy",
+                    LastName = "Cook",
                     Role = "Doctor",
                     User = AdminUser,
                     UrlProfilePicture = "https://randomuser.me/api/portraits/women/83.jpg",
@@ -131,7 +132,8 @@ namespace HHAM.Migrations
                     Description = "I am an Doctor !!! YAY ME",
                     Role = "Doctor",
                     User = DoctorUser,
-                    Name = "Jenny Wang",
+                    FirstName = "Jenny",
+                    LastName = "Wang",
                     UrlProfilePicture = "https://randomuser.me/api/portraits/women/90.jpg",
                 });
 
@@ -157,7 +159,8 @@ namespace HHAM.Migrations
                     Description = "I am a Nurse !!! YAY ME",
                     User = NurseUser,
                     Role = "Nusre",
-                    Name = "Max Tucker",
+                    FirstName = "Max",
+                    LastName = "Tucker",
                     UrlProfilePicture = "https://randomuser.me/api/portraits/men/21.jpg",
                 });
 

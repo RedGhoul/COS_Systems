@@ -11,6 +11,8 @@ using HHAM.Models;
 using HHAM.ViewModels;
 using HHAM.Services;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
+using HHAM.DataTransferObjects;
 
 namespace HHAM.Controllers
 {
@@ -19,8 +21,14 @@ namespace HHAM.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private AzureBlobService azureBlobService = new AzureBlobService();
+
         // GET: Patients
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult CurrentPatients()
         {
             return View();
         }
