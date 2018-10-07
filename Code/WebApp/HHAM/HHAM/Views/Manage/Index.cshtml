@@ -19,14 +19,18 @@
     <div class="row">
         <div class="col-4">
 
-            <div class="card">
+            <div class="card" style="width: 22rem;">
                 <img class="card-img-top" src="@Model.CareGiverUserProfile.UrlProfilePicture" alt="Card image cap">
                 <div class="card-body">
-                    <a href="#" class="btn btn-primary">Change Profile Picture</a>
+                    <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+                        <label for="exampleInputFile">File input</label>
+                        <input type="file" name="files" class="btn btn-primary" style="margin-bottom:10px;"/>
+                        <a href="#" class="btn btn-primary" id="btnSubmit">Save</a>
+                    </form>
 
                 </div>
             </div>
-
+           
         </div>
         <div class="col-4">
             <div class="card">
@@ -162,6 +166,25 @@
             }).fail(function (result) {
                 alertify.notify("A error occured", 'error', 5, function () { });
                 $("#DescriptionValue").val() = Description;
+            });
+        });
+
+        $("#btnSubmit").click(function () {
+            var form = $('#fileUploadForm')[0];
+            var data = new FormData(form);
+
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/api/UserProfile/UploadUserImage",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+            }).done(function (result) {
+                form.reset();
+                console.log(result);
             });
         });
 

@@ -13,6 +13,7 @@ using HHAM.DataTransferObjects;
 using HHAM.Models;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using MultipartDataMediaFormatter.Infrastructure;
 
 namespace HHAM.Controllers.APIControllers
 {
@@ -69,6 +70,13 @@ namespace HHAM.Controllers.APIControllers
             db.Entry(currentUserProfile).State = EntityState.Modified;
             db.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.OK, user);
+        }
+
+        [HttpPost]
+        [Route("api/UserProfile/UploadUserImage")]
+        public IHttpActionResult Upload(FormData formData)
+        {
+            return Ok(formData.Files[0]);
         }
 
         // PUT: api/UserProfileInfoes/5

@@ -240,7 +240,6 @@
     <Compile Include="Controllers\ViewControllers\ManageController.cs" />
     <Compile Include="Controllers\ViewControllers\PatientsController.cs" />
     <Compile Include="Controllers\ViewControllers\ScansController.cs" />
-    <Compile Include="Controllers\ViewControllers\UserProfileInfoesController.cs" />
     <Compile Include="DataTransferObjects\PatientDto.cs" />
     <Compile Include="DataTransferObjects\ScanDto.cs" />
     <Compile Include="DataTransferObjects\UserProfileInfoDto.cs" />
@@ -389,11 +388,6 @@
     <Content Include="Views\Patients\PatientProfile.cshtml" />
     <Content Include="Views\Patients\Edit.cshtml" />
     <Content Include="Views\Patients\Index.cshtml" />
-    <Content Include="Views\UserProfileInfoes\Create.cshtml" />
-    <Content Include="Views\UserProfileInfoes\Delete.cshtml" />
-    <Content Include="Views\UserProfileInfoes\Details.cshtml" />
-    <Content Include="Views\UserProfileInfoes\Edit.cshtml" />
-    <Content Include="Views\UserProfileInfoes\Index.cshtml" />
     <Content Include="Views\Patients\CurrentPatients.cshtml" />
   </ItemGroup>
   <ItemGroup>
