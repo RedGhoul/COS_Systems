@@ -19,3 +19,15 @@ http://cs231n.github.io/convolutional-networks/ - defining a CNN
 
 ## Deep learning theory Overview 
 https://doi.org/10.1016/j.neunet.2014.09.003
+
+## type of hardware (GPUs)
+http://timdettmers.com/2015/03/09/deep-learning-hardware-guide/
+
+https://www.quora.com/Why-and-how-are-GPUs-so-important-for-Neural-Network-computations-Why-cant-GPU-be-used-to-speed-up-any-other-computation-what-is-special-about-NN-computations-that-make-GPUs-useful
+
+## uses of NNs in medicine 
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2825001/
+
+## What is a GPU 
+
+http://www.itpro.co.uk/hardware/30399/what-is-a-gpu
