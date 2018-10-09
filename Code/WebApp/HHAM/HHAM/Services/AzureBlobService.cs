@@ -13,6 +13,8 @@ namespace HHAM.Services
 {
     public class AzureBlobService
     {
+        public static AzureBlobService instance;
+
         private CloudStorageAccount cloudStorageAccount;
         private CloudBlobClient cloudBlobClient;
         private string DICOMContainerEnding = "dicomfiles";
@@ -20,8 +22,13 @@ namespace HHAM.Services
 
         public AzureBlobService()
         {
-            cloudStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("AzureStorageConnectionString-2"));
-            cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            if(instance == null)
+            {
+                instance = new AzureBlobService();
+                cloudStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("AzureStorageConnectionString-2"));
+                cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            }
+           
         }
 
         public ICollection<string> getAllPatientScans(int patientID)
@@ -93,6 +100,45 @@ namespace HHAM.Services
                 return null;
             }
             return PatientScanPath;
+        }
+
+        public async Task<string> UploadProfileImageAsync(FormData.ValueFile ImageToUpload, string userID)
+        {
+            string ProfilePicturePath = null;
+            if (ImageToUpload == null)
+            {
+                return null;
+            }
+            try
+            {
+                //getting the patients container
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(ProfilePicturePath.ToString() + ScansContainerEnding);
+                if (cloudBlobContainer.CreateIfNotExists())
+                {
+                    await cloudBlobContainer.SetPermissionsAsync(
+                            new BlobContainerPermissions
+                            {
+
+                                PublicAccess = BlobContainerPublicAccessType.Blob
+                            }
+                        );
+                }
+                //creating the scan name
+                string pictureName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(ImageToUpload.Name) + "-ProfileImage";
+                //making the blob ref
+                CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(pictureName);
+                //setting data type
+                cloudBlockBlob.Properties.ContentType = ImageToUpload.GetType().Name;
+                //uploading the byte array
+                await cloudBlockBlob.UploadFromByteArrayAsync(ImageToUpload.Value.Buffer, 0, ImageToUpload.Value.Buffer.Length);
+
+                ProfilePicturePath = cloudBlockBlob.Uri.ToString();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return ProfilePicturePath;
         }
 
         public async Task<string> UploadDICOMFileAsync(FormData.ValueFile DICOMFileToUpload, int patientID)
