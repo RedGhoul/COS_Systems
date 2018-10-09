@@ -21,7 +21,7 @@ namespace HHAM.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Scan> Photos { get; set; }
+        public DbSet<Scan> Scans { get; set; }
         public DbSet<Patient> Patient { get; set; }
         public DbSet<BloodType> BloodTypes { get; set; }
         public DbSet<Gender> Genders { get; set; }
