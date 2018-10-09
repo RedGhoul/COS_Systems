@@ -23,7 +23,7 @@ namespace HHAM.Controllers.APIControllers
         [Route("api/Scans/{idPatient}")]
         public async Task<HttpResponseMessage> GetPatientScans(string idPatient)
         {
-            List<Scan> Scans = await db.Photos.ToListAsync();
+            List<Scan> Scans = await db.Scans.ToListAsync();
             if (Scans == null)
             {
                 string errorMsg = "We can not find any entries";
@@ -38,7 +38,7 @@ namespace HHAM.Controllers.APIControllers
         [Route("api/Scans/Delete/{idScan}")]
         public async Task<HttpResponseMessage> DeletePhoto(int idScan)
         {
-            Scan scan = await db.Photos.FindAsync(idScan);
+            Scan scan = await db.Scans.FindAsync(idScan);
             if (scan == null)
             {
                 string errorMsg = "We can not complete that action right now";
@@ -46,7 +46,7 @@ namespace HHAM.Controllers.APIControllers
                 return Request.CreateResponse(HttpStatusCode.NotFound, err);
             }
 
-            db.Photos.Remove(scan);
+            db.Scans.Remove(scan);
             await db.SaveChangesAsync();
 
             return Request.CreateResponse(HttpStatusCode.OK, scan);
@@ -56,7 +56,7 @@ namespace HHAM.Controllers.APIControllers
         [ResponseType(typeof(Scan))]
         public async Task<IHttpActionResult> GetScan(int id)
         {
-            Scan photo = await db.Photos.FindAsync(id);
+            Scan photo = await db.Scans.FindAsync(id);
             if (photo == null)
             {
                 return NotFound();
@@ -109,7 +109,7 @@ namespace HHAM.Controllers.APIControllers
                 return BadRequest(ModelState);
             }
 
-            db.Photos.Add(photo);
+            db.Scans.Add(photo);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = photo.Id }, photo);
@@ -127,7 +127,7 @@ namespace HHAM.Controllers.APIControllers
 
         private bool PhotoExists(int id)
         {
-            return db.Photos.Count(e => e.Id == id) > 0;
+            return db.Scans.Count(e => e.Id == id) > 0;
         }
     }
 }
