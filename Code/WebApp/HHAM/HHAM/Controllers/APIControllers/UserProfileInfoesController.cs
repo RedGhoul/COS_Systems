@@ -14,13 +14,22 @@ using HHAM.Models;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using MultipartDataMediaFormatter.Infrastructure;
+using HHAM.Services;
 
 namespace HHAM.Controllers.APIControllers
 {
     [Authorize]
     public class UserProfileInfoesController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private static ApplicationDbContext db;
+        
+        public UserProfileInfoesController()
+        {
+            if(db == null)
+            {
+                db = new ApplicationDbContext();
+            }
+        }
 
         // for the admin table
         [Route("api/UserProfile/All")]
@@ -74,9 +83,14 @@ namespace HHAM.Controllers.APIControllers
 
         [HttpPost]
         [Route("api/UserProfile/UploadUserImage")]
-        public IHttpActionResult Upload(FormData formData)
+        public async Task<HttpResponseMessage> Upload(FormData formData)
         {
-            return Ok(formData.Files[0]);
+            string userId = User.Identity.GetUserId();
+            string profilePictureUrl = await AzureBlobService.instance.UploadProfileImageAsync(formData.Files[0], userId);
+            UserProfileInfo currentUserProfile = db.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
+            currentUserProfile.UrlProfilePicture = profilePictureUrl;
+            await db.SaveChangesAsync();
+            return Request.CreateResponse(HttpStatusCode.OK, profilePictureUrl);
         }
 
         // PUT: api/UserProfileInfoes/5
