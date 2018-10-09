@@ -13,7 +13,6 @@ namespace HHAM.Services
 {
     public class AzureBlobService
     {
-        public static AzureBlobService instance;
 
         private CloudStorageAccount cloudStorageAccount;
         private CloudBlobClient cloudBlobClient;
@@ -22,13 +21,9 @@ namespace HHAM.Services
 
         public AzureBlobService()
         {
-            if(instance == null)
-            {
-                instance = new AzureBlobService();
-                cloudStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("AzureStorageConnectionString-2"));
-                cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-            }
-           
+            cloudStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("AzureStorageConnectionString-2"));
+            cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+
         }
 
         public ICollection<string> getAllPatientScans(int patientID)
@@ -141,17 +136,17 @@ namespace HHAM.Services
             return ProfilePicturePath;
         }
 
-        public async Task<string> UploadDICOMFileAsync(FormData.ValueFile DICOMFileToUpload, int patientID)
+        public async Task<string> UploadRAWFileAsync(HttpPostedFileBase rawFile, string patientName)
         {
-            string PatientDICOMPath = null;
-            if (DICOMFileToUpload == null)
+            string PatientRawFilePath = null;
+            if (rawFile == null)
             {
                 return null;
             }
             try
             {
                 //getting the patients container
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + DICOMContainerEnding);
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientName.ToString() + DICOMContainerEnding);
                 if (cloudBlobContainer.CreateIfNotExists())
                 {
                     await cloudBlobContainer.SetPermissionsAsync(
@@ -162,22 +157,22 @@ namespace HHAM.Services
                             }
                         );
                 }
-                //creating the scan name
-                string scanName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(DICOMFileToUpload.Name);
+                //creating the PatientRawFile name
+                string PatientRawFileName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(rawFile.FileName) +  "-RAWSCAN";
                 //making the blob ref
-                CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(scanName);
+                CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(PatientRawFileName);
                 //setting data type
-                cloudBlockBlob.Properties.ContentType = DICOMFileToUpload.GetType().Name;
+                cloudBlockBlob.Properties.ContentType = rawFile.GetType().Name;
                 //uploading the byte array
-                await cloudBlockBlob.UploadFromByteArrayAsync(DICOMFileToUpload.Value.Buffer, 0, DICOMFileToUpload.Value.Buffer.Length);
+                await cloudBlockBlob.UploadFromStreamAsync(rawFile.InputStream);
 
-                PatientDICOMPath = cloudBlockBlob.Uri.ToString();
+                PatientRawFilePath = cloudBlockBlob.Uri.ToString();
             }
             catch (Exception)
             {
                 return null;
             }
-            return PatientDICOMPath;
+            return PatientRawFilePath;
         }
 
         public bool IsValidScanImageURL(string scanURL, string patientID)
