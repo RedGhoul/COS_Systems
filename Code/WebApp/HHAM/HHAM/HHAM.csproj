@@ -314,6 +314,10 @@
     <Compile Include="Migrations\201810032228166_userProfileInfoAddedLastFirstNames.Designer.cs">
       <DependentUpon>201810032228166_userProfileInfoAddedLastFirstNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810090254170_addedRawUrlToScans.cs" />
+    <Compile Include="Migrations\201810090254170_addedRawUrlToScans.Designer.cs">
+      <DependentUpon>201810090254170_addedRawUrlToScans.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BloodType.cs" />
@@ -450,6 +454,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810032228166_userProfileInfoAddedLastFirstNames.resx">
       <DependentUpon>201810032228166_userProfileInfoAddedLastFirstNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810090254170_addedRawUrlToScans.resx">
+      <DependentUpon>201810090254170_addedRawUrlToScans.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
