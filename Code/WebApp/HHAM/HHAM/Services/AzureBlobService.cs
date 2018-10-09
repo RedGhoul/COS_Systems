@@ -16,8 +16,9 @@ namespace HHAM.Services
 
         private CloudStorageAccount cloudStorageAccount;
         private CloudBlobClient cloudBlobClient;
-        private string DICOMContainerEnding = "dicomfiles";
-        private string ScansContainerEnding = "scans";
+        private readonly string UserProfileImages = "userprofileimages2";
+        private readonly string PSScansRAWSeg = "psscansrawseg";
+        private readonly string PSScansRAW = "psscansraw";
 
         public AzureBlobService()
         {
@@ -26,75 +27,50 @@ namespace HHAM.Services
 
         }
 
-        public ICollection<string> getAllPatientScans(int patientID)
+        public ICollection<string> GetAllPatientRawSeg(string patientNumber)
         {
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + ScansContainerEnding);
-            cloudBlobContainer.CreateIfNotExists();
-
-            var listOfScanBlobs = cloudBlobContainer.ListBlobs().ToList();
-            List<String> ScanURLs = new List<string>();
-            foreach (var item in listOfScanBlobs)
-            {
-                ScanURLs.Add(item.Uri.ToString());
-            }
-
-            return ScanURLs;
-        }
-         
-        public ICollection<string> getAllPatientDICOMFiles(int patientID)
-        {
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + DICOMContainerEnding);
-            cloudBlobContainer.CreateIfNotExists();
-
-            var listOfScanBlobs = cloudBlobContainer.ListBlobs().ToList();
-            List<String> ScanURLs = new List<string>();
-            foreach (var item in listOfScanBlobs)
-            {
-                ScanURLs.Add(item.Uri.ToString());
-            }
-
-            return ScanURLs;
-        }
-
-
-
-        public async Task<string> UploadScanImageAsync(FormData.ValueFile ScanToUpload, int patientID)
-        {
-            string PatientScanPath = null;
-            if (ScanToUpload == null)
-            {
-                return null;
-            }
             try
             {
-                //getting the patients container
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + ScansContainerEnding);
-                if (cloudBlobContainer.CreateIfNotExists())
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(PSScansRAWSeg);
+                var listOfScanBlobs = cloudBlobContainer.ListBlobs().Where(x => x.Uri.ToString().Contains(patientNumber)).ToList();
+                List<String> RAWSegURLs = new List<string>();
+
+                foreach (var item in listOfScanBlobs)
                 {
-                    await cloudBlobContainer.SetPermissionsAsync(
-                            new BlobContainerPermissions
-                            {
-
-                                PublicAccess = BlobContainerPublicAccessType.Blob
-                            }
-                        );
+                    RAWSegURLs.Add(item.Uri.ToString());
                 }
-                //creating the scan name
-                string scanName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(ScanToUpload.Name);
-                //making the blob ref
-                CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(scanName);
-                //setting data type
-                cloudBlockBlob.Properties.ContentType = ScanToUpload.GetType().Name;
-                //uploading the byte array
-                await cloudBlockBlob.UploadFromByteArrayAsync(ScanToUpload.Value.Buffer, 0, ScanToUpload.Value.Buffer.Length);
 
-                PatientScanPath = cloudBlockBlob.Uri.ToString();
+                return RAWSegURLs;
             }
             catch (Exception)
             {
+
                 return null;
             }
-            return PatientScanPath;
+        }
+         
+        public ICollection<string> GetAllPatientRawFiles(string patientNumber)
+        {
+            try
+            {
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(PSScansRAW);
+
+                var listOfScanBlobs = cloudBlobContainer.ListBlobs().Where(x => x.Uri.ToString().Contains(patientNumber)).ToList();
+                List<String> RAWURLs = new List<string>();
+
+                foreach (var item in listOfScanBlobs)
+                {
+                    RAWURLs.Add(item.Uri.ToString());
+                }
+
+                return RAWURLs;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+           
         }
 
         public async Task<string> UploadProfileImageAsync(FormData.ValueFile ImageToUpload, string userID)
@@ -104,24 +80,12 @@ namespace HHAM.Services
             {
                 return null;
             }
+
             try
             {
-                //getting the patients container
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(ProfilePicturePath.ToString() + ScansContainerEnding);
-                if (cloudBlobContainer.CreateIfNotExists())
-                {
-                    await cloudBlobContainer.SetPermissionsAsync(
-                            new BlobContainerPermissions
-                            {
-
-                                PublicAccess = BlobContainerPublicAccessType.Blob
-                            }
-                        );
-                }
-                //creating the scan name
-                string pictureName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(ImageToUpload.Name) + "-ProfileImage";
-                //making the blob ref
-                CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(pictureName);
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(UserProfileImages);
+                string profilePictureName = "ProfileImage-" + userID;
+                CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(profilePictureName);
                 //setting data type
                 cloudBlockBlob.Properties.ContentType = ImageToUpload.GetType().Name;
                 //uploading the byte array
@@ -136,7 +100,7 @@ namespace HHAM.Services
             return ProfilePicturePath;
         }
 
-        public async Task<string> UploadRAWFileAsync(HttpPostedFileBase rawFile, string patientName)
+        public async Task<string> UploadRAWFileAsync(HttpPostedFileBase rawFile, string patientNumber)
         {
             string PatientRawFilePath = null;
             if (rawFile == null)
@@ -145,25 +109,14 @@ namespace HHAM.Services
             }
             try
             {
-                //getting the patients container
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientName.ToString() + DICOMContainerEnding);
-                if (cloudBlobContainer.CreateIfNotExists())
-                {
-                    await cloudBlobContainer.SetPermissionsAsync(
-                            new BlobContainerPermissions
-                            {
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(PSScansRAW);
+                
+                string PatientRawFileName = Guid.NewGuid().ToString() + "-" + patientNumber +  "-RAWSCAN";
 
-                                PublicAccess = BlobContainerPublicAccessType.Blob
-                            }
-                        );
-                }
-                //creating the PatientRawFile name
-                string PatientRawFileName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(rawFile.FileName) +  "-RAWSCAN";
-                //making the blob ref
                 CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(PatientRawFileName);
-                //setting data type
+
                 cloudBlockBlob.Properties.ContentType = rawFile.GetType().Name;
-                //uploading the byte array
+
                 await cloudBlockBlob.UploadFromStreamAsync(rawFile.InputStream);
 
                 PatientRawFilePath = cloudBlockBlob.Uri.ToString();
@@ -175,29 +128,13 @@ namespace HHAM.Services
             return PatientRawFilePath;
         }
 
-        public bool IsValidScanImageURL(string scanURL, string patientID)
+        public bool IsValidRawFileURL(string rawFileURL)
         {
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + ScansContainerEnding);
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(UserProfileImages);
 
             try
             {
-                cloudBlobContainer.GetBlockBlobReference(scanURL);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-        }
-        public bool IsValidDICOMFileURL(string DICOMFileURL, string patientID)
-        {
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + DICOMContainerEnding);
-
-            try
-            {
-                cloudBlobContainer.GetBlockBlobReference(DICOMFileURL);
-                return true;
+                return cloudBlobContainer.GetBlockBlobReference(rawFileURL).Exists();
             }
             catch (Exception)
             {
@@ -206,19 +143,19 @@ namespace HHAM.Services
 
         }
 
-        public async void DeleteScan(string scanURL, string patientID)
+        public async void DeleteRawFile(string rawFileURL)
         {
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + ScansContainerEnding);
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(PSScansRAW);
 
-            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(scanURL);
+            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(rawFileURL);
             await cloudBlockBlob.DeleteIfExistsAsync();
         }
 
-        public async void DeleteDICOMFile(string DICOMFileURL, string patientID)
+        public async void DeleteRawSegFile(string rawSegFileURL)
         {
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(patientID.ToString() + DICOMContainerEnding);
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(PSScansRAWSeg);
 
-            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(DICOMFileURL);
+            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(rawSegFileURL);
             await cloudBlockBlob.DeleteIfExistsAsync();
         }
     }
