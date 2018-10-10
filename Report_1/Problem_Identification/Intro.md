@@ -1,2 +1,2 @@
 # Scope Identification
-Medical imaging using image segmentation
+For our capstone project, the system we are designing is called the Cognitive Oncology System (COS). The COS should be able to identify prostate tumors using image segmentation on Medical Resonance Imaging scans. Medical imaging is a non-invasive method used to visualize the body parts, tissues and organs of the human body.
