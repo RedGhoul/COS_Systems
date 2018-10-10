@@ -20,6 +20,8 @@ Our key stakeholders includes the individuals who have the greatest influence in
 
 The key stakeholders also include those in management, and those who make final decisions when purchasing hospital softwares and equipment. This group is comprised of user managers, and hospital committees/boards. These committees manage evaluation, selection, and purchase of medical devices, which is why they are included as our key stakeholders.
 
+In Canada, in order to implement a medical device into the field, it will need to be tested and reviewed by the Medical Devices Bureau of the Therapeutic Products Directorate (TPD). They evaluate and monitor the safety, effectiveness and quality of these devices before, during and after the products release. As our product falls under the definition of a medical device, we will need to follow their regulations under the Food and Drugs Act. 
+
 The power/interest grid is a common tool used in stakeholder analysis, where it clearly organizes current stakeholders by their influence and interest in the product. As it is not possible to satisfy every individual, it is necessary to prioritize stakeholders in this manner for marketing purposes. Table X displays this relationship (in word doc, will attach)
 
 We can determine the most effective level of engagement based on level of interest and power each group has following the products release. Groups listed under high interest-high influence requires close management following the products release. For overall customer satisfaction, it would be most effective to provide information and updates to those under the high interest category, and monitor those in the low-interest category.
