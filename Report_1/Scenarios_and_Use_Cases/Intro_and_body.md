@@ -20,13 +20,13 @@ Access certain patients and their records
 
 The second section, CRUD, refers to the ability to Create, Read, Upload and Destroy files. Under the secondary level:
 
-Nurses can create a patient
-Nurses can update a patient data
-Nurses can read patient data
-Doctors can add patient scans
-Doctors can update patient scans
-Doctors can read patient scans
-Doctors can remove patient scans
+- Nurses can create a patient
+- Nurses can update a patient data
+- Nurses can read patient data
+- Doctors can add patient scans
+- Doctors can update patient scans
+- Doctors can read patient scans
+- Doctors can remove patient scans
 
 As doctors will be our main users, they will be the most authorized users in these scenarios.  They will have the most access to the application, with the least amount of restrictions. This is since doctors and oncologists interact directly with their patients, and will be able to receive direct consent from the patient to upload certain information and are qualified to diagnose any abnormalities. Authorized nurses will be limited to creating, updating, and reading patient documents. Nurses typically spend more time with patients, which explains the need for COS access. However, nurses are not qualified to upload scans or diagnose based on image segmented results. In regards to administrators, due to privacy issues, they will be limited even further. Administrators will not have access to patient data, but will monitor these authorized users. 
 
