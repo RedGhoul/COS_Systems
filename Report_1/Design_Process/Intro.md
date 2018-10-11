@@ -17,4 +17,4 @@ The chosen development methodology for the development of COS, is Agile. The Agi
 •	Working software over comprehensive documentation
 •	Customer collaboration over contract negotiation
 •	Responding to change over following a plan
-Agile is implemented in a management framework known as Scrum. Scrum is designed for the management of small teams, and focuses on the week long development cycles that target the completion of specific features. The reason we choose it, is because it offers us the most flexibility, is widely used, and helps us deliver value to the customer faster.
+Agile is implemented in a management framework known as Scrum. Scrum is designed for the management of small teams, and focuses on the week long development cycles that target the completion of specific features. The reason we choose it, is because it offers us the most flexibility, and is widely used.
