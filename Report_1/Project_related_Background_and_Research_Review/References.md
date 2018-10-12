@@ -39,3 +39,6 @@ https://www.youtube.com/watch?v=UJwK6jAStmg&index=2&list=PLiaHhY2iBX9hdHaRr6b7Xe
 
 https://www.techradar.com/news/what-is-a-neural-network
 
+## Image used for segmentation describing
+
+https://en.wikipedia.org/wiki/Medical_image_computing#/media/File:MeningiomaMRISegmentation.png
