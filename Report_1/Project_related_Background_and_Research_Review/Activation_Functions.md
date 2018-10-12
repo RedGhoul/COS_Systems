@@ -19,7 +19,8 @@ Non-linear functions are often used because they're able to match data sets that
 The main reason why for using a sigmoid function is because it exists between (0 to 1). Therefore, it is especially used for models there is a need to predict the probability as an output. Since probability of anything exists only between the range of 0 and 1, sigmoid is the a good choice for such applications.The function is differentiable. That means the slope of the sigmoid curve at any two points can be found.
 The function is monotonic(function which is either entirely non-increasing or non-decreasing) but function’s derivative is not. 
 
-![alt text](/Report_1/Project_related_Background_and_Research_Review/Sigmoid function.PNG) 
+![alt text](/Report_1/Project_related_Background_and_Research_Review/Sigmoid function.PNG)
+
 
 ## TanH activation function
 
@@ -38,4 +39,4 @@ Range: [0, ∞)
 
 The function and its derivative both are monotonic.
 
-The issue is that all the negative values become zero immediately which decreases the ability of the model to fit or train from the data properly. That means any negative input given to the ReLU activation function turns the value into zero immediately in the graph, which in turns affects the resulting graph by not mapping the negative values appropriately.
+The issue is that all the negative values become zero immediately which decreases the ability of the model to fit or train from the data properly. That means any negative input given to the ReLU activation function turns the value into zero immediately in the graph which in turns affects the resulting graph by not mapping the negative values appropriately.
