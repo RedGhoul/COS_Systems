@@ -32,5 +32,6 @@ The partial derivative is being taken with respect to the second set of weights,
 
 ![alt text](/Report_1/Project_related_Background_and_Research_Review/equation3.PNG)
 
+
 The final equation for the first set of weights is: 
 ![alt text](/Report_1/Project_related_Background_and_Research_Review/equation4.PNG)
