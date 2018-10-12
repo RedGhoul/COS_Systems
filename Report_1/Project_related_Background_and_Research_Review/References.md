@@ -31,3 +31,11 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2825001/
 ## What is a GPU 
 
 http://www.itpro.co.uk/hardware/30399/what-is-a-gpu
+
+## Neural network theory 
+https://www.techopedia.com/definition/33263/output-layer-neural-networks
+
+https://www.youtube.com/watch?v=UJwK6jAStmg&index=2&list=PLiaHhY2iBX9hdHaRr6b7XevZtgZRa1PoU
+
+https://www.techradar.com/news/what-is-a-neural-network
+
