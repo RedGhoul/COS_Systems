@@ -24,14 +24,13 @@ Expanding on the by applying power rule and chain rule to the above equation, th
 
 ![alt text](/Report_1/Project_related_Background_and_Research_Review/equation2.PNG) 
 
-For the sake of ease, 2 inputs(blue), 3 neurons (green) and one output (yellow) as shown below
-
+For the sake of ease, 2 inputs(blue), 3 neurons (green) and one output (yellow) as shown below:
 ![alt text](/Report_1/Project_related_Background_and_Research_Review/neural_network_derivation_fixed.PNG)
 
-The partial derivative is being taken with respect to the second set of weights, W (2), because the cost function relies directly on those weights and will use them to determine the error value. Y-yhat describes the error by subtracting the output value from the expected value. As with the second set of weights, we also apply the same calculation to the first set of weights as shown below
-
+The partial derivative is being taken with respect to the second set of weights, W (2), because the cost function relies directly on those weights and will use them to determine the error value. Y-yhat describes the error by subtracting the output value from the expected value. As with the second set of weights, we also apply the same calculation to the first set of weights as shown below:
 ![alt text](/Report_1/Project_related_Background_and_Research_Review/equation3.PNG)
 
 
 The final equation for the first set of weights is: 
+
 ![alt text](/Report_1/Project_related_Background_and_Research_Review/equation4.PNG)
