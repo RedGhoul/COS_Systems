@@ -6,20 +6,20 @@ There are multiple types of functions: Linear, Non-Linear, TanH and ReLU
 ## Linear activation function
 From the graph below, the function is a line or linear. Therefore, the output of the functions will not be confined between any range. The equation represented is  f(x) = x with a range of (-∞, ∞). Although this equation is simple enough to implement, it does not help with the complexity or various parameters of real-life applications data that would be input into neural networks
 
-linear pic 
+![alt text](/Report_1/Project_related_Background_and_Research_Review/linearfunction.PNG)   
 
 ## Non-linear activation functions 
 
 Non-linear functions are often used because they're able to match data sets that have a trend similar to what is shown below. This is an easier function for a neural network model to generalize and adapt to when given a variety of data and to differentiate between the output. 
 
-nonlinear pic  
+![alt text](/Report_1/Project_related_Background_and_Research_Review/Non_linear_function.PNG)  
 
 ## Sigmoid activation function
 
 The main reason why for using a sigmoid function is because it exists between (0 to 1). Therefore, it is especially used for models there is a need to predict the probability as an output. Since probability of anything exists only between the range of 0 and 1, sigmoid is the a good choice for such applications.The function is differentiable. That means the slope of the sigmoid curve at any two points can be found.
 The function is monotonic(function which is either entirely non-increasing or non-decreasing) but function’s derivative is not. 
 
-sigmoid pic 
+![alt text](/Report_1/Project_related_Background_and_Research_Review/Sigmoid_function.PNG) 
 
 
 ## TanH activation function
@@ -33,7 +33,7 @@ and monotonic while its derivative is not monotonic.
 
 Currently, ReLU is the most used activation function in most neural network applications, because a large amount of these of neural networks follow the convolutional neural network (CNN) modelling scheme.the ReLU is half rectified (from bottom). f(z) is zero when z is less than zero and f(z) is equal to z when z is above or equal to zero as shown below. 
 
-relu pic 
+![alt text](/Report_1/Project_related_Background_and_Research_Review/ReLU_function.PNG)  
 
 Range: [0, ∞)
 
