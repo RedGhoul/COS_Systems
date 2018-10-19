@@ -1,3 +1,3 @@
 # Acceptance Tests
-# Our Cognitive Oncology system will undergo a number of testing processes during development before it is available for customer use.
-
+# Our Cognitive Oncology system will undergo a number of testing processes during development before it is available for customer use. The point of testing is to ensure our product meets all the engineering requirements. There will be tests that take place as frequently as possible since its is more cost efficient to recognize an issues earlier than later on in a projects life cycle.
+The end goal of our project is to create a user friendly web app where the user is able to view, analyze, edit and comment on patient scans. In addition, special users like doctors will be able to add scans to the website. The software will use neural networking to identify benign, premalignant or malignant tumors seen within these scans. Therefore making the process of diagnosing the patient 
