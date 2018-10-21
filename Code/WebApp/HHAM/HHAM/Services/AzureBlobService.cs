@@ -73,7 +73,7 @@ namespace HHAM.Services
            
         }
 
-        public async Task<string> UploadProfileImageAsync(FormData.ValueFile ImageToUpload, string userID)
+        public string UploadProfileImageAsync(FormData.ValueFile ImageToUpload, string userID)
         {
             string ProfilePicturePath = null;
             if (ImageToUpload == null)
@@ -84,12 +84,12 @@ namespace HHAM.Services
             try
             {
                 CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(UserProfileImages);
-                string profilePictureName = "ProfileImage-" + userID;
+                string profilePictureName = Guid.NewGuid().ToString() + "-ProfileImage-" + userID;
                 CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(profilePictureName);
                 //setting data type
                 cloudBlockBlob.Properties.ContentType = ImageToUpload.GetType().Name;
                 //uploading the byte array
-                await cloudBlockBlob.UploadFromByteArrayAsync(ImageToUpload.Value.Buffer, 0, ImageToUpload.Value.Buffer.Length);
+                cloudBlockBlob.UploadFromByteArrayAsync(ImageToUpload.Value.Buffer, 0, ImageToUpload.Value.Buffer.Length);
 
                 ProfilePicturePath = cloudBlockBlob.Uri.ToString();
             }

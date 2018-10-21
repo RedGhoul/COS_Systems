@@ -81,14 +81,23 @@ namespace HHAM.Controllers.APIControllers
 
         [HttpPost]
         [Route("api/UserProfile/UploadUserImage")]
-        public async Task<HttpResponseMessage> Upload(FormData formData)
+        public HttpResponseMessage Upload(FormData formData)
         {
             string userId = User.Identity.GetUserId();
-            string profilePictureUrl = await _blobService.UploadProfileImageAsync(formData.Files[0], userId);
+            string profilePictureUrl = _blobService.UploadProfileImageAsync(formData.Files[0], userId);
             UserProfileInfo currentUserProfile = _dbContext.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
             currentUserProfile.UrlProfilePicture = profilePictureUrl;
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.OK, profilePictureUrl);
+        }
+
+        [HttpGet]
+        [Route("api/UserProfile/GetUserImage")]
+        public HttpResponseMessage GetProfileImage()
+        {
+            string userId = User.Identity.GetUserId();
+            UserProfileInfo currentUserProfile = _dbContext.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
+            return Request.CreateResponse(HttpStatusCode.OK, currentUserProfile.UrlProfilePicture);
         }
 
         // PUT: api/UserProfileInfoes/5
