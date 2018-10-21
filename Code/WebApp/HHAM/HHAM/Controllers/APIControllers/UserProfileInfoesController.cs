@@ -14,19 +14,26 @@ using HHAM.Models;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using MultipartDataMediaFormatter.Infrastructure;
+using HHAM.Services;
 
 namespace HHAM.Controllers.APIControllers
 {
     [Authorize]
     public class UserProfileInfoesController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext _dbContext;
+        private AzureBlobService _blobService;
+        public UserProfileInfoesController()
+        {
+            _dbContext = new ApplicationDbContext();
+            _blobService = new AzureBlobService();
+        }
 
         // for the admin table
         [Route("api/UserProfile/All")]
         public async Task<HttpResponseMessage> GetUserProfiles()
         {
-            List<UserProfileInfo> UserProfileInfos = await db.UserProfileInfo.ToListAsync();
+            List<UserProfileInfo> UserProfileInfos = await _dbContext.UserProfileInfo.ToListAsync();
             if (UserProfileInfos == null)
             {
                 string errorMsg = "We can not find any entries";
@@ -43,10 +50,10 @@ namespace HHAM.Controllers.APIControllers
         public HttpResponseMessage ChangeFirstName(UserProfileInfoDto user)
         {
             string userId = User.Identity.GetUserId();
-            UserProfileInfo currentUserProfile = db.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
+            UserProfileInfo currentUserProfile = _dbContext.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
             currentUserProfile.FirstName = user.FirstName;
-            db.Entry(currentUserProfile).State = EntityState.Modified;
-            db.SaveChanges();
+            _dbContext.Entry(currentUserProfile).State = EntityState.Modified;
+            _dbContext.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
@@ -54,10 +61,10 @@ namespace HHAM.Controllers.APIControllers
         public HttpResponseMessage ChangeLastName(UserProfileInfoDto user)
         {
             string userId = User.Identity.GetUserId();
-            UserProfileInfo currentUserProfile = db.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
+            UserProfileInfo currentUserProfile = _dbContext.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
             currentUserProfile.LastName = user.LastName;
-            db.Entry(currentUserProfile).State = EntityState.Modified;
-            db.SaveChanges();
+            _dbContext.Entry(currentUserProfile).State = EntityState.Modified;
+            _dbContext.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
@@ -65,18 +72,32 @@ namespace HHAM.Controllers.APIControllers
         public HttpResponseMessage ChangeDescription(UserProfileInfoDto user)
         {
             string userId = User.Identity.GetUserId();
-            UserProfileInfo currentUserProfile = db.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
+            UserProfileInfo currentUserProfile = _dbContext.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
             currentUserProfile.Description = user.Description;
-            db.Entry(currentUserProfile).State = EntityState.Modified;
-            db.SaveChanges();
+            _dbContext.Entry(currentUserProfile).State = EntityState.Modified;
+            _dbContext.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
         [HttpPost]
         [Route("api/UserProfile/UploadUserImage")]
-        public IHttpActionResult Upload(FormData formData)
+        public HttpResponseMessage Upload(FormData formData)
         {
-            return Ok(formData.Files[0]);
+            string userId = User.Identity.GetUserId();
+            string profilePictureUrl = _blobService.UploadProfileImageAsync(formData.Files[0], userId);
+            UserProfileInfo currentUserProfile = _dbContext.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
+            currentUserProfile.UrlProfilePicture = profilePictureUrl;
+            _dbContext.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.OK, profilePictureUrl);
+        }
+
+        [HttpGet]
+        [Route("api/UserProfile/GetUserImage")]
+        public HttpResponseMessage GetProfileImage()
+        {
+            string userId = User.Identity.GetUserId();
+            UserProfileInfo currentUserProfile = _dbContext.UserProfileInfo.Where(x => x.User.Id == userId).FirstOrDefault();
+            return Request.CreateResponse(HttpStatusCode.OK, currentUserProfile.UrlProfilePicture);
         }
 
         // PUT: api/UserProfileInfoes/5
@@ -93,11 +114,11 @@ namespace HHAM.Controllers.APIControllers
                 return BadRequest();
             }
 
-            db.Entry(userProfileInfo).State = EntityState.Modified;
+            _dbContext.Entry(userProfileInfo).State = EntityState.Modified;
 
             try
             {
-                await db.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -123,8 +144,8 @@ namespace HHAM.Controllers.APIControllers
                 return BadRequest(ModelState);
             }
 
-            db.UserProfileInfo.Add(userProfileInfo);
-            await db.SaveChangesAsync();
+            _dbContext.UserProfileInfo.Add(userProfileInfo);
+            await _dbContext.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = userProfileInfo.Id }, userProfileInfo);
         }
@@ -133,14 +154,14 @@ namespace HHAM.Controllers.APIControllers
         [ResponseType(typeof(UserProfileInfo))]
         public async Task<IHttpActionResult> DeleteUserProfileInfo(int id)
         {
-            UserProfileInfo userProfileInfo = await db.UserProfileInfo.FindAsync(id);
+            UserProfileInfo userProfileInfo = await _dbContext.UserProfileInfo.FindAsync(id);
             if (userProfileInfo == null)
             {
                 return NotFound();
             }
 
-            db.UserProfileInfo.Remove(userProfileInfo);
-            await db.SaveChangesAsync();
+            _dbContext.UserProfileInfo.Remove(userProfileInfo);
+            await _dbContext.SaveChangesAsync();
 
             return Ok(userProfileInfo);
         }
@@ -149,14 +170,14 @@ namespace HHAM.Controllers.APIControllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _dbContext.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool UserProfileInfoExists(int id)
         {
-            return db.UserProfileInfo.Count(e => e.Id == id) > 0;
+            return _dbContext.UserProfileInfo.Count(e => e.Id == id) > 0;
         }
     }
 }

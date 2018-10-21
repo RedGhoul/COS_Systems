@@ -237,6 +237,7 @@
     <Compile Include="Controllers\APIControllers\ScansController.cs" />
     <Compile Include="Controllers\APIControllers\UserProfileInfoesController.cs" />
     <Compile Include="Controllers\ViewControllers\AccountController.cs" />
+    <Compile Include="Controllers\ViewControllers\AdminController.cs" />
     <Compile Include="Controllers\ViewControllers\ManageController.cs" />
     <Compile Include="Controllers\ViewControllers\PatientsController.cs" />
     <Compile Include="Controllers\ViewControllers\ScansController.cs" />
@@ -314,6 +315,14 @@
     <Compile Include="Migrations\201810032228166_userProfileInfoAddedLastFirstNames.Designer.cs">
       <DependentUpon>201810032228166_userProfileInfoAddedLastFirstNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810090254170_addedRawUrlToScans.cs" />
+    <Compile Include="Migrations\201810090254170_addedRawUrlToScans.Designer.cs">
+      <DependentUpon>201810090254170_addedRawUrlToScans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810092043471_changedToRAWURLP.cs" />
+    <Compile Include="Migrations\201810092043471_changedToRAWURLP.Designer.cs">
+      <DependentUpon>201810092043471_changedToRAWURLP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BloodType.cs" />
@@ -389,6 +398,7 @@
     <Content Include="Views\Patients\Edit.cshtml" />
     <Content Include="Views\Patients\Index.cshtml" />
     <Content Include="Views\Patients\CurrentPatients.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -450,6 +460,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810032228166_userProfileInfoAddedLastFirstNames.resx">
       <DependentUpon>201810032228166_userProfileInfoAddedLastFirstNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810090254170_addedRawUrlToScans.resx">
+      <DependentUpon>201810090254170_addedRawUrlToScans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810092043471_changedToRAWURLP.resx">
+      <DependentUpon>201810092043471_changedToRAWURLP.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

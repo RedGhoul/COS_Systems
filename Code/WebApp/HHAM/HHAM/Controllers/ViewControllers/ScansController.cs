@@ -53,8 +53,13 @@ namespace HHAM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateScanViewModel createScanViewModel)
         {
-           
-            return View();
+            // mapped the data from one place to the other
+            Scan newScan = new Scan();
+            Mapper.Map<CreateScanViewModel, Scan>(createScanViewModel, newScan);
+            string RAW_URL = await _blobService.UploadRAWFileAsync(createScanViewModel.file, createScanViewModel.PatientNumber);
+            newScan.RAW_URL = RAW_URL;
+            _dbContext.Scans.Add(newScan);
+            return RedirectToAction("Index", new { PatientNumber = createScanViewModel.PatientNumber });
         }
 
 
@@ -65,7 +70,7 @@ namespace HHAM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Scan scan = await _dbContext.Photos.FindAsync(id);
+            Scan scan = await _dbContext.Scans.FindAsync(id);
             if (scan == null)
             {
                 return HttpNotFound();
@@ -82,7 +87,7 @@ namespace HHAM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Scan photo = await _dbContext.Photos.FindAsync(id);
+            Scan photo = await _dbContext.Scans.FindAsync(id);
             if (photo == null)
             {
                 return HttpNotFound();
@@ -113,7 +118,7 @@ namespace HHAM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Scan photo = await _dbContext.Photos.FindAsync(id);
+            Scan photo = await _dbContext.Scans.FindAsync(id);
             if (photo == null)
             {
                 return HttpNotFound();
@@ -126,8 +131,8 @@ namespace HHAM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Scan photo = await _dbContext.Photos.FindAsync(id);
-            _dbContext.Photos.Remove(photo);
+            Scan photo = await _dbContext.Scans.FindAsync(id);
+            _dbContext.Scans.Remove(photo);
             await _dbContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }

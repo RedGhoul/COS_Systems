@@ -12,6 +12,27 @@
     .card-header {
         height: 50px;
     }
+
+    .loader {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 255, 255, 255, .8 ) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+    }
+
+    body.loading .loader {
+        overflow: hidden;
+    }
+
+    /* Anytime the body has the loading class, our
+       modal element will be visible */
+    body.loading .loader {
+        display: block;
+    }
 </style>
 <div class="container">
     <h2>Settings</h2>
@@ -20,17 +41,18 @@
         <div class="col-4">
 
             <div class="card" style="width: 22rem;">
-                <img class="card-img-top" src="@Model.CareGiverUserProfile.UrlProfilePicture" alt="Card image cap">
+                <div id="loader" class="loader"></div>
+                <img id="profileImage" class="card-img-top" src="@Model.CareGiverUserProfile.UrlProfilePicture" alt="Card image cap">
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                         <label for="exampleInputFile">File input</label>
-                        <input type="file" name="files" class="btn btn-primary" style="margin-bottom:10px;"/>
+                        <input type="file" name="files" class="btn btn-primary" style="margin-bottom:10px;" />
                         <a href="#" class="btn btn-primary" id="btnSubmit">Save</a>
                     </form>
 
                 </div>
             </div>
-           
+
         </div>
         <div class="col-4">
             <div class="card">
@@ -103,7 +125,7 @@
                     <p>@Model.CareGiverUserProfile.Role</p>
                 </div>
             </div>
-            
+
         </div>
 
     </div>
@@ -112,6 +134,7 @@
 </div>
 @section scripts{
     <script>
+        $("#loader").hide();
         //first name save
         $("#saveFirstName").click(function () {
             var name = $("#FirstNameValue").val();
@@ -185,6 +208,23 @@
             }).done(function (result) {
                 form.reset();
                 console.log(result);
+                $.ajax({
+                    type: "GET",
+                    enctype: 'multipart/form-data',
+                    url: "/api/UserProfile/GetUserImage"
+                }).done(function (result) {
+                    $("#loader").show();
+                    $('#profileImage').hide();
+                    setTimeout(
+                        function () {
+                            var image = $('#profileImage').on('load', function () { console.log("Loading") });
+                            image.attr("src", result);
+                            $('#profileImage').show();
+                            $("#loader").hide();
+                            console.log(result);
+                        }, 10000);
+
+                });
             });
         });
 
