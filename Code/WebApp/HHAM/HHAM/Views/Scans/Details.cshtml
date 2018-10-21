@@ -5,50 +5,48 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-<div class="container" style="padding-top:10px;">
-
-    <div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card" style="max-width: 40rem;">
-                    <img src="@Html.DisplayFor(model => model.ScanURL)" class="card-img-top">
-                    <div class="card-body text-primary">
-                        <h5 class="card-title">Inital Image</h5>
-                    </div>
+<div class="container" style="padding-top:20px;">
+    <hr />
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Original Scan</h5>
+                    <p class="card-text"></p>
+                    <a href="@Model.RAW_URL" class="btn btn-primary">Download</a>
                 </div>
             </div>
-            <div class="col-sm-5">
-                <div class="card" style="max-width: 35rem;">
-                    <img src="@Html.DisplayFor(model => model.ScanURLProcessed)" class="card-img-top">
-                    <div class="card-body text-primary">
-                        <h5 class="card-title">Analysed Image</h5>
-                    </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Processed Scan</h5>
+                    <p class="card-text"></p>
+                    <a href="@Model.RAW_URLProcessed" class="btn btn-primary">Download</a>
                 </div>
             </div>
-            <aside class="col-sm-6">
-                <article class="card-body p-5">
-                    <h3 class="title mb-3">Name: @Html.DisplayFor(model => model.Name)</h3>
-                    <dl class="date-detail-wrap">
-                        <dt>Date Added: </dt>
-                        <dd><p>@Model.DateAdded.Date.ToString("dd MMM yyyy")</p></dd>
-                    </dl> 
-                    <dl class="item-property">
-                        <dt>Description:</dt>
-                        <dd>
-                            <p>
-                                @Html.DisplayFor(model => model.Notes)
-                            </p>
-                        </dd>
-                    </dl>
-                   
-                    <hr>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-lg btn-primary text-uppercase"})
-                    
-                </article>
-            </aside>
         </div>
     </div>
+    <hr />
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Name: @Html.DisplayFor(model => model.Name)</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Date Added:</b> @Model.DateAdded.Date.ToString("dd MMM yyyy")</li>
+                    <li class="list-group-item"><b>Description:</b> @Html.DisplayFor(model => model.Notes)</li>
+                </ul>
+                <div class="card-body">
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-lg btn-primary text-uppercase" })
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
 
 </div>
