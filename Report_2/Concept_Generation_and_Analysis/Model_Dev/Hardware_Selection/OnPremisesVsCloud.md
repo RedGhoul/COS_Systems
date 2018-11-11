@@ -1,0 +1,21 @@
+In the initial conception of the idea for this product we were planning to primarily use cloud VMs to train the models. However, after doing more research we found that the cost to benefit ratio did not workout in favour of using cloud VMs. We looked at three major areas when doing our analysis, cost, performance, and maintainability. And compared the following options, AWS, Azure, GCP, and On Premise solution.
+As we looked at the cost component, and we found that a lot of VM types offered for by the cloud providers were variably priced, expect in the cases of entering into an enterprise level service contract. The three main providers AWS, Azure, and GCP, each had their own unique pricing strategies. We will not be going into detail for each cloud provider. However they can be separated into three distinct categories, Pay as You Go, Dedicated, and Reserved Instance. 
+The Pay as You Go pricing model is self explanatory, however the VM gets put to sleep every time you stop using the it, leading to lengthy start up times. Since the power of the VM is on demand you will not be given a discount the longer you use it. And if left running without shut down it can lead large costs. Since this a on demand product it will not get priority within the cloud provider infrastructure.
+The Dedicated pricing model solves a number of issues that the Pay as You Go pricing model has. However, this comes at a much larger cost, since the VM you are getting is tied to a dedicated physical machine in the data center. Another draw back to Dedicated VMs require to you to fully manage all the software on the machines them selves, which adds another layer of complexity.
+The Reserved instance pricing model is a hybrid of the Dedicated and Pay As you go Pricing model. Where you enter into an agreement to use X amount of instances over Y years, at a large discount. However in doing so you can not reduce your capacity at any time. And if you are using less then you payed for, you will not be given a refund or credit. So you have to be very carful with this pricing plan.
+The On Premises solution would have the largest upfront cost when compared to the any of the cloud based solutions. However over the long run it would cost as much as the cloud VMs since we could use it as much or as little as we wanted with not penalty. We would also be guaranteed the amount of power in the machine it’s self, since we would not have to fight for priority system resources.
+When we looked at the performance between On Premises vs Cloud VMs we found that the newer cloud VMs built for the express purpose of training models was machine higher. Since they had Nvidia’s latest server grade ML GPU known as the Tesla V100s. These V100 VM instances were only offered in a handful of data centers around the world, and they were on average 4 times as expensive as the regular ML VMs. Interestingly we did find that consumer grade hardware did beat out server grade hardware in the mid range GPUs. Which made building our own On Premises machine more viable.
+
+![alt text](Report_2/Concept_Generation_and_Analysis/Model_Dev/Hardware_Selection/ResNet-50-GTX1080TivsRTX2080vsRTX2080TivsTitanV-TensorFlow-Trainingperformance.PNG)
+
+![alt text](Report_2/Concept_Generation_and_Analysis/Model_Dev/Hardware_Selection/LamadaResults.PNG)
+
+For the maintainability aspect, the On premise solution was the best by far. Since all VMs found in the cloud run some form of Linux by default running a command line interface. This poses a large problem for us since no one on the team has any experience with using configuring the needed Nvidia drivers, and machine learning libraries to train our models.
+It is for all the reasons we listed above that we decided to go with a On premise solution. We used a machine we already had, with the following specifications.
+
+CPU	I7 7700K
+RAM	32 GB GDDR4
+GPU	2 x GTX 1080 Ti
+Hard Drive	1 TB SSD
+
+The only new piece of hardware we bought was a new GTX 1080 Ti, since it was all we could afford. Since this computer was already a pre existing computer we had access to, we would be interacting with the standard Windows 10 interface, with a pre existing installation of the drivers and Tensor Flow libraries.
