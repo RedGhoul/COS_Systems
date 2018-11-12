@@ -1,5 +1,5 @@
-We choose to use server side rendering over, client side rendering since it would greatly speed up our development time.
-The core COS product does not require complicated UI interactions therefor the use of a client side framework would
-unessarly increase complicity.
-For any sort of key user functionality we choose to use a minimal set of front end technolgies, that provided a large amount of
-functionality out of the box. Therefor we use CDNs that hold our CSS and javascript rather then sending it over the server.
+## Product Development - Intro
+
+This product will be a combination of several different technologies and applications. COS will be divided into three major parts. The first part of COS will be the user facing portion, that will allow health care workers to use the model. The second portion of COS will be the data storage aspect. And the third part will be the ML model server. 
+The user facing portion of the COS (UFP-COS) will consist of an ASP.NET MVC based application that health care professionals can log into, and interact with patient data. It will have a MS SQL DB that it will use to store all user, and patient profile information. Where as the scan files will be stored in a object storage provider, and be distributed through a content delivery network (CDN), with in Canada.The data storage portion of the COS (DS-COS) will be responsible to store the files given to it, through the UFP-COS. We choose this method of object storage since, file serialization to store images in a database is not feasible at scale, especially when the number of images that can be stored is not capped. Another aspect to DS-COS is the fact that the files that are given to UFP-COS will not be in an image format but in the DICOM file format. 
+The final part of COS is the machine learning aspect (ML-COS). COS will not in itself train models, but rather run data through our pre trained model. This will take place on another server which will be running “TensorFlow Serving” Which is then stored on DS-COS and then served to the medical practitioner through UFP-COS.
