@@ -1,3 +1,14 @@
 The Front end of the application will be using a mixture of server side and client-side rendering to create the webpages seen by the user. Server side rendering is the process in which the server generates a html document and sends it to the user’s web browser. Where as client side rendering is when the server sends Java Script to the browser once, and then that Java Script talks to server to get data and display it on screen. For the server side rendering aspect we will be the “V” in ASP.NET MVC. The “V” is the ASP.NET’s view engine known as Razor Pages. These Razor Pages allow us to add dynamic content to the HTML document as it is being generated using embedded C#. The Client side rendering aspect is going be using JQuery, which is open source client side library, that uses Java Script to create dynamic interactions to the user.  Such as updating new content on the screen without having to refresh the page.
+
+![alt text](/Report_2/Conceptual_System_Design/Application_Design/FrontEndDesignOverView.png)
+
 The Backend portion of the application will be using the “M” and “C” in MVC. Which stand for Model and Controller. The Model acts as a Plain Old C-Sharp Object (POCO) that represents an entity and serve to the user. This is accomplished by using a intermediary abstraction between it’s self and the database known as a DBContext. This context is used to populate the POCO instead of executing SQL commands directly against the database. The controllers will be responsible enforcing application logic and telling the front end what to show the end users. 
 The ML severing part of the application will be responsible for providing an API that can be used by our main web application. This is accomplished with the use of “Tensor Flow Serving” Tensor Flow comes with a number of built in features and extensions made by Google, and open sourced. 
+
+![alt text](/Report_2/Conceptual_System_Design/Application_Design/BackEndDesignOverView.png)
+
+The ML severing part of the application will be responsible for providing an API that can be used by our main web application. This is accomplished with the use of “Tensor Flow Serving” (TFS) which is a technology created by Google to make the deployment of models into production environments much easier. What TFS does, is give you a way to automatically generate a REST API server that you can control to run data into your pre trained model and get the results back out again. 
+
+This is in part possible through the use of a virtualization technology called Docker. It allows us to deploy, and preconfigure applications on to any type of hardware. This gives us the ability to write what we need into a Docker file, and have it create the application in a container, inside the primary OS. Whereas applications such VMware require the use of OS at the base of an existing operating system. 
+
+![alt text](/Report_2/Conceptual_System_Design/Application_Design/DOCKER.PNG)
