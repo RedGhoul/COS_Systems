@@ -1,0 +1,1 @@
+In conclusion our application is going to a complex integration of a number of different parts. That span a wide variety of technologies. However we have broken it down into two major parts, the application and the ML model. 
