@@ -10,7 +10,7 @@ namespace HHAM.Models
     public class Patient
     {
         public int Id { get; set; }
-        public string PatientNumber { get; set; }
+        public string patientNumber { get; set; }
         public DateTime BirthDate { get; set; }
 
         [Display(Name = "First Name")]

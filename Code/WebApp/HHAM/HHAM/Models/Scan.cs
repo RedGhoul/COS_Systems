@@ -13,5 +13,6 @@ namespace HHAM.Models
         public string RAW_URLProcessed { get; set; }
         public string RAW_URL { get; set; }
         public string Notes { get; set; }
+        public Patient PatientAssociatedWith { get; set; }
     }
 }
