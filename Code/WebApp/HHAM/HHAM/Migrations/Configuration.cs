@@ -69,15 +69,15 @@ namespace HHAM.Migrations
                     LastName = "Cook",
                     Role = "Admin",
                     User = AdminUser,
-                    UrlProfilePicture = "https://randomuser.me/api/portraits/women/83.jpg",
+                    UrlProfilePicture = "https://randomuser.me/api/portraits/women/64.jpg",
                 });
 
 
                 // Doctor Users
-                CreateDoctorUser(context, UserManager, "mirna.jegatheeswaran@uoit.net", "YOLo123)","Mirna", "Jegatheeswaran","90");
-                CreateDoctorUser(context, UserManager, "harminder.paink@uoit.net", "YOLo1234)", "Harminder", "Paink", "93");
-                CreateDoctorUser(context, UserManager, "huda.sarwar@uoit.net", "YOLo1235)", "Huda", "Sarwar", "92");
-                CreateDoctorUser(context, UserManager, "jing.ren@uoit.ca", "YOLo1236)", "Jing", "Ren", "96");
+                CreateDoctorUser(context, UserManager, "mirna.jegatheeswaran@uoit.net", "YOLo123)","Mirna", "Jegatheeswaran","64");
+                CreateDoctorUser(context, UserManager, "harminder.paink@uoit.net", "YOLo1234)", "Harminder", "Paink", "64");
+                CreateDoctorUser(context, UserManager, "huda.sarwar@uoit.net", "YOLo1235)", "Huda", "Sarwar", "64");
+                CreateDoctorUser(context, UserManager, "jing.ren@uoit.ca", "YOLo1236)", "Jing", "Ren", "64");
                 
                 // Nurse User
 
@@ -177,12 +177,8 @@ namespace HHAM.Migrations
 
             if (context.Patient.ToList().Count == 0)
             {
-                //List<UserProfileInfo> temp = new List<UserProfileInfo>();
-                //temp.Add(NurseProfile);
-                //temp.Add(DoctorProfile);
                 for (int i = 0; i < 100; i++)
                 {
-
                     if(i % 2 == 0)
                     {
                         context.Patient.Add(new Models.Patient
@@ -193,7 +189,7 @@ namespace HHAM.Migrations
                             patientNumber = Guid.NewGuid().ToString(),
                             Weight = gen.Next(120,205),
                             Height = gen.Next(100,200),
-                            Gender = context.Genders.Where(x => x.Text == "Other").FirstOrDefault(),
+                            Gender = context.Genders.Where(x => x.Text == "Male").FirstOrDefault(),
                             DateAdmited = DateAdmited,
                             DateReleased = DateAdmited.AddDays(20),
                             Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10),
@@ -214,7 +210,7 @@ namespace HHAM.Migrations
                             patientNumber = Guid.NewGuid().ToString(),
                             Weight = gen.Next(120, 205),
                             Height = gen.Next(100, 200),
-                            Gender = context.Genders.Where(x => x.Text == "Other").FirstOrDefault(),
+                            Gender = context.Genders.Where(x => x.Text == "Female").FirstOrDefault(),
                             DateAdmited = DateAdmited,
                             DateReleased = DateAdmited.AddDays(20),
                             Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10),
@@ -232,16 +228,16 @@ namespace HHAM.Migrations
 
             if (context.Scans.ToList().Count == 0)
             {
-                Console.WriteLine(context.Scans.ToList().Count + "-------------");
                 foreach (var patient in context.Patient.ToList())
                 {
                     for (int i = 0; i < 6; i++)
                     {
-                        context.Scans.Add(CreateRandScan(patient.patientNumber, i, DateAdmited));
+                        context.Scans.Add(CreateRandScan(patient.patientNumber, i, DateAdmited, patient));
                         
                     }
                 }
             }
+
             context.SaveChanges();
         }
 
@@ -281,7 +277,7 @@ namespace HHAM.Migrations
             return start.AddDays(gen.Next(range));
         }
 
-        Scan CreateRandScan(string PatientNumber, int scanNumber, DateTime DateAdded)
+        Scan CreateRandScan(string PatientNumber, int scanNumber, DateTime DateAdded, Patient P_A_W)
         {
             return new Scan
             {
@@ -289,7 +285,8 @@ namespace HHAM.Migrations
                 DateAdded = DateAdded,
                 RAW_URL = "https://ccr.cancer.gov/sites/default/files/hcc_clinical_trial_-_467x363_1.jpg",
                 RAW_URLProcessed = "https://ccr.cancer.gov/sites/default/files/hcc_clinical_trial_-_467x363_1.jpg",
-                Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10)
+                Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10),
+                PatientAssociatedWith = P_A_W
             };
         }
     }
