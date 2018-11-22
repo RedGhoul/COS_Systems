@@ -28,44 +28,7 @@ namespace HHAM.Migrations
             var placeGenerator = new PlaceNameGenerator();
             
             DateTime DateAdmited = RandomDay();
-            UserProfileInfo DoctorProfile= null;
             UserProfileInfo NurseProfile = null;
-
-            if (context.Scans.ToList().Count == 0)
-            {
-                context.Scans.Add(new Scan
-                {
-                    Name = "Scan_1",
-                    DateAdded = DateAdmited,
-                    RAW_URL = "https://ccr.cancer.gov/sites/default/files/hcc_clinical_trial_-_467x363_1.jpg",
-                    RAW_URLProcessed = "https://ccr.cancer.gov/sites/default/files/hcc_clinical_trial_-_467x363_1.jpg",
-                    Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10)
-                });
-                context.Scans.Add(new Scan
-                {
-                    Name = "Scan_2",
-                    DateAdded = DateAdmited,
-                    RAW_URL = "https://www.amberusa.com/blog/wp-content/uploads/2018/04/rp_170308_normal_ct_abdomen_800x6001.jpg",
-                    RAW_URLProcessed = "https://www.amberusa.com/blog/wp-content/uploads/2018/04/rp_170308_normal_ct_abdomen_800x6001.jpg",
-                    Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10)
-                });
-                context.Scans.Add(new Scan
-                {
-                    Name = "Scan_3",
-                    DateAdded = DateAdmited,
-                    RAW_URL = "https://img.medscapestatic.com/pi/meds/ckb/98/16798tn.jpg",
-                    RAW_URLProcessed = "https://img.medscapestatic.com/pi/meds/ckb/98/16798tn.jpg",
-                    Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10)
-                });
-                context.Scans.Add(new Scan
-                {
-                    Name = "Scan_4",
-                    DateAdded = DateAdmited,
-                    RAW_URL = "https://www.radiology.vcu.edu/images/photos/Lung%20Cancer%20CT%20Scan_Web.jpg",
-                    RAW_URLProcessed = "https://www.radiology.vcu.edu/images/photos/Lung%20Cancer%20CT%20Scan_Web.jpg",
-                    Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10)
-                });
-            }
 
             if (context.Roles.ToList().Count == 0)
             {
@@ -86,11 +49,11 @@ namespace HHAM.Migrations
 
                 var AdminUser = new ApplicationUser
                 {
-                    UserName = "ava345@gmail.com",
-                    Email = "ava345@gmail.com"
+                    UserName = "avaneesab5@gmail.com",
+                    Email = "avaneesab5@gmail.com"
                 };
 
-                string AdminUserPWD = "mehMeh123)";
+                string AdminUserPWD = "DietForCoke123)";
 
                 var AdminUserCreationStatus = UserManager.Create(AdminUser, AdminUserPWD);
 
@@ -101,43 +64,22 @@ namespace HHAM.Migrations
 
                 context.UserProfileInfo.Add(new UserProfileInfo
                 {
-                    Description = "I am an ADMIN !!! YAY ME",
+                    Description = "I am an ADMIN",
                     FirstName = "Nancy",
                     LastName = "Cook",
-                    Role = "Doctor",
+                    Role = "Admin",
                     User = AdminUser,
-                    UrlProfilePicture = "https://randomuser.me/api/portraits/women/83.jpg",
+                    UrlProfilePicture = "https://randomuser.me/api/portraits/women/64.jpg",
                 });
 
 
-                // Doctor
-
-                var DoctorUser = new ApplicationUser
-                {
-                    UserName = "Jenny.Wang@gmail.com",
-                    Email = "Jenny.Wang@gmail.com"
-                };
-
-                string DoctorUserPWD = "YOLo123)";
-
-                var DoctorUserCreationStatus = UserManager.Create(DoctorUser, DoctorUserPWD);
-
-                if (DoctorUserCreationStatus.Succeeded)
-                {
-                    var result = UserManager.AddToRole(DoctorUser.Id, "Doctor");
-                }
-
-                DoctorProfile = context.UserProfileInfo.Add(new UserProfileInfo
-                {
-                    Description = "I am an Doctor !!! YAY ME",
-                    Role = "Doctor",
-                    User = DoctorUser,
-                    FirstName = "Jenny",
-                    LastName = "Wang",
-                    UrlProfilePicture = "https://randomuser.me/api/portraits/women/90.jpg",
-                });
-
-                // Nurse
+                // Doctor Users
+                CreateDoctorUser(context, UserManager, "mirna.jegatheeswaran@uoit.net", "YOLo123)","Mirna", "Jegatheeswaran","64");
+                CreateDoctorUser(context, UserManager, "harminder.paink@uoit.net", "YOLo1234)", "Harminder", "Paink", "64");
+                CreateDoctorUser(context, UserManager, "huda.sarwar@uoit.net", "YOLo1235)", "Huda", "Sarwar", "64");
+                CreateDoctorUser(context, UserManager, "jing.ren@uoit.ca", "YOLo1236)", "Jing", "Ren", "64");
+                
+                // Nurse User
 
                 var NurseUser = new ApplicationUser
                 {
@@ -164,10 +106,10 @@ namespace HHAM.Migrations
                     UrlProfilePicture = "https://randomuser.me/api/portraits/men/21.jpg",
                 });
 
-                
+
             }
-          
-           
+
+
             // added all the blood types
             if (context.BloodTypes.ToList().Count == 0)
             {
@@ -235,25 +177,19 @@ namespace HHAM.Migrations
 
             if (context.Patient.ToList().Count == 0)
             {
-                //List<UserProfileInfo> temp = new List<UserProfileInfo>();
-                //temp.Add(NurseProfile);
-                //temp.Add(DoctorProfile);
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 100; i++)
                 {
-
                     if(i % 2 == 0)
                     {
-
-
                         context.Patient.Add(new Models.Patient
                         {
                             FirstName = personGenerator.GenerateRandomFirstName(),
                             LastName = personGenerator.GenerateRandomLastName(),
                             BirthDate = RandomDay(),
-                            PatientNumber = Guid.NewGuid().ToString(),
+                            patientNumber = Guid.NewGuid().ToString(),
                             Weight = gen.Next(120,205),
                             Height = gen.Next(100,200),
-                            Gender = context.Genders.Where(x => x.Text == "Other").FirstOrDefault(),
+                            Gender = context.Genders.Where(x => x.Text == "Male").FirstOrDefault(),
                             DateAdmited = DateAdmited,
                             DateReleased = DateAdmited.AddDays(20),
                             Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10),
@@ -271,10 +207,10 @@ namespace HHAM.Migrations
                             FirstName = personGenerator.GenerateRandomFirstName(),
                             LastName = personGenerator.GenerateRandomLastName(),
                             BirthDate = RandomDay(),
-                            PatientNumber = Guid.NewGuid().ToString(),
+                            patientNumber = Guid.NewGuid().ToString(),
                             Weight = gen.Next(120, 205),
                             Height = gen.Next(100, 200),
-                            Gender = context.Genders.Where(x => x.Text == "Other").FirstOrDefault(),
+                            Gender = context.Genders.Where(x => x.Text == "Female").FirstOrDefault(),
                             DateAdmited = DateAdmited,
                             DateReleased = DateAdmited.AddDays(20),
                             Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10),
@@ -289,7 +225,49 @@ namespace HHAM.Migrations
                 }
                 
             }
+
+            if (context.Scans.ToList().Count == 0)
+            {
+                foreach (var patient in context.Patient.ToList())
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        context.Scans.Add(CreateRandScan(patient.patientNumber, i, DateAdmited, patient));
+                        
+                    }
+                }
+            }
+
             context.SaveChanges();
+        }
+
+        private void CreateDoctorUser(ApplicationDbContext context, UserManager<ApplicationUser> UserManager, string UserName, string Password,string firstName, string lastName, string picNum)
+        {
+            UserProfileInfo DoctorProfile;
+            var DoctorUser = new ApplicationUser
+            {
+                UserName = UserName,
+                Email = UserName
+            };
+
+            string DoctorUserPWD = Password; // "YOLo123)";
+
+            var DoctorUserCreationStatus = UserManager.Create(DoctorUser, DoctorUserPWD);
+
+            if (DoctorUserCreationStatus.Succeeded)
+            {
+                var result = UserManager.AddToRole(DoctorUser.Id, "Doctor");
+            }
+
+            DoctorProfile = context.UserProfileInfo.Add(new UserProfileInfo
+            {
+                Description = "I am an Doctor",
+                Role = "Doctor",
+                User = DoctorUser,
+                FirstName = firstName,
+                LastName = lastName,
+                UrlProfilePicture = "https://randomuser.me/api/portraits/women/" + picNum +".jpg",
+            });
         }
 
         DateTime RandomDay()
@@ -297,6 +275,19 @@ namespace HHAM.Migrations
             DateTime start = new DateTime(1993, 3, 7);
             int range = (DateTime.Today - start).Days;
             return start.AddDays(gen.Next(range));
+        }
+
+        Scan CreateRandScan(string PatientNumber, int scanNumber, DateTime DateAdded, Patient P_A_W)
+        {
+            return new Scan
+            {
+                Name = "Scan_" + scanNumber + PatientNumber,
+                DateAdded = DateAdded,
+                RAW_URL = "https://ccr.cancer.gov/sites/default/files/hcc_clinical_trial_-_467x363_1.jpg",
+                RAW_URLProcessed = "https://ccr.cancer.gov/sites/default/files/hcc_clinical_trial_-_467x363_1.jpg",
+                Notes = LoremNET.Lorem.Paragraph(5, 6, 4, 10),
+                PatientAssociatedWith = P_A_W
+            };
         }
     }
 }

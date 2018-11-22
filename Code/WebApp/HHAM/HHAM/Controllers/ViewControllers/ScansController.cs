@@ -28,9 +28,14 @@ namespace HHAM.Controllers
 
         public ActionResult Index(string PatientNumber)
         {
+            var currentPatient = _dbContext.Patient.Where(x => x.patientNumber == PatientNumber).FirstOrDefault();
+            var currentPatientsScans = _dbContext.Scans.Include(y => y.PatientAssociatedWith).Where(x => x.PatientAssociatedWith.Id == currentPatient.Id).ToList();
+
             ScansAreaViewModel ViewModel = new ScansAreaViewModel {
-                Patient = _dbContext.Patient.Where(x => x.PatientNumber == PatientNumber).FirstOrDefault()
+                Patient = currentPatient,
+                Scans = currentPatientsScans
             };
+
             return View(ViewModel);
         }
 

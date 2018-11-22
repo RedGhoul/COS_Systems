@@ -57,7 +57,16 @@
                         <div class="card" id="cardstat">
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align:center">Gender</h5>
-                                <p class="card-text" style="text-align:center">@Model.Gender.Text</p>
+                                <p class="card-text" style="text-align:center">
+                                    @if (Model != null && Model.Gender == null)
+                                    {
+                                        <a>N/A</a>
+                                    }
+                                    else
+                                    {
+                                        @Model.Gender.Text
+                                    }
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -128,7 +137,7 @@
                         <div class="card" id="cardstat">
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align:center">Blood Type</h5>
-                                <p class="card-text" style="text-align:center">@Model.BloodType.Text</p>
+                                <p class="card-text" style="text-align:center">A</p>
                             </div>
                         </div>
                     </div>

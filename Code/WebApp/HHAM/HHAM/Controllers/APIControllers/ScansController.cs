@@ -23,15 +23,16 @@ namespace HHAM.Controllers.APIControllers
         [Route("api/Scans/{idPatient}")]
         public async Task<HttpResponseMessage> GetPatientScans(string idPatient)
         {
-            List<Scan> Scans = await db.Scans.ToListAsync();
-            if (Scans == null)
+            var currentPatient = db.Patient.Where(x => x.Id.ToString() == idPatient).FirstOrDefault();
+            var currentPatientsScans = db.Scans.Include(y => y.PatientAssociatedWith).Where(x => x.PatientAssociatedWith.Id == currentPatient.Id).ToList();
+            if (currentPatientsScans == null)
             {
                 string errorMsg = "We can not find any entries";
                 HttpError err = new HttpError(errorMsg);
                 return Request.CreateResponse(HttpStatusCode.NotFound, err);
             }
             List<ScanDto> ScanDtos = new List<ScanDto>();
-            Mapper.Map<List<Scan>, List<ScanDto>>(Scans, ScanDtos);
+            Mapper.Map<List<Scan>, List<ScanDto>>(currentPatientsScans, ScanDtos);
             return Request.CreateResponse(HttpStatusCode.OK,ScanDtos);
         }
 

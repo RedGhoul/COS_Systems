@@ -8,7 +8,7 @@
 <div style="margin-top:5%;">
     <h2>Scans For @Model.Patient.FirstName</h2>
     <p>
-        @Html.ActionLink("Create New Scan", "Create", new { PatientNumber = Model.Patient.PatientNumber }, new { @class = "btn btn-md btn-primary text-uppercase", @style = "margin-top:10px;" })
+        @Html.ActionLink("Create New Scan", "Create", new { PatientNumber = Model.Patient.patientNumber }, new { @class = "btn btn-md btn-primary text-uppercase", @style = "margin-top:10px;" })
     </p>
     <table id="Scans" class="table table-striped table-bordered">
         <thead>

@@ -291,6 +291,10 @@
     <Compile Include="Migrations\201809250428330_addedRoleToUserProfile.Designer.cs">
       <DependentUpon>201809250428330_addedRoleToUserProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809251849181_addedPatientNumberToPatientModel.cs" />
+    <Compile Include="Migrations\201809251849181_addedPatientNumberToPatientModel.Designer.cs">
+      <DependentUpon>201809251849181_addedPatientNumberToPatientModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201809262040180_TookOutScansFromPatient.cs" />
     <Compile Include="Migrations\201809262040180_TookOutScansFromPatient.Designer.cs">
       <DependentUpon>201809262040180_TookOutScansFromPatient.cs</DependentUpon>
@@ -323,8 +327,12 @@
     <Compile Include="Migrations\201810092043471_changedToRAWURLP.Designer.cs">
       <DependentUpon>201810092043471_changedToRAWURLP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811212240519_createdPatientScanOTO.cs" />
+    <Compile Include="Migrations\201811212240519_createdPatientScanOTO.Designer.cs">
+      <DependentUpon>201811212240519_createdPatientScanOTO.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\BloodType.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -443,6 +451,9 @@
     <EmbeddedResource Include="Migrations\201809250428330_addedRoleToUserProfile.resx">
       <DependentUpon>201809250428330_addedRoleToUserProfile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809251849181_addedPatientNumberToPatientModel.resx">
+      <DependentUpon>201809251849181_addedPatientNumberToPatientModel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809262040180_TookOutScansFromPatient.resx">
       <DependentUpon>201809262040180_TookOutScansFromPatient.cs</DependentUpon>
     </EmbeddedResource>
@@ -466,6 +477,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810092043471_changedToRAWURLP.resx">
       <DependentUpon>201810092043471_changedToRAWURLP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811212240519_createdPatientScanOTO.resx">
+      <DependentUpon>201811212240519_createdPatientScanOTO.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
