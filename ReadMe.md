@@ -1,6 +1,8 @@
 # Cognative Oncology Systems (COS)
 
-Please note that this repo was once private, but added a new remote repo 
+Please note that this repo was once private, but added a new remote repo
+
+You can see the web app portion of this project using the following URL: https://hham.azurewebsites.net/Patients
 
 ## Overview
 COS is a Saas product designed to help Oncologists better diagnose and track tumors in their patients.
