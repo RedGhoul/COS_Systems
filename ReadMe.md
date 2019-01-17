@@ -1,5 +1,7 @@
 # Cognative Oncology Systems (COS)
 
+Please note that this repo was once private, but added a new remote repo 
+
 ## Overview
 COS is a Saas product designed to help Oncologists better diagnose and track tumors in their patients.
 
