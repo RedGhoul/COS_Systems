@@ -4,6 +4,8 @@ Please note that this repo was once private, but added a new remote repo
 
 You can see the web app portion of this project using the following URL: https://hham.azurewebsites.net/Patients
 
+You can see the web app code following this link below: https://github.com/RedGhoul/COS_System_WEB
+
 ## Overview
 COS is a Saas product designed to help Oncologists better diagnose and track tumors in their patients.
 
